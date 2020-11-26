@@ -12,15 +12,15 @@ router.post('/login',(req,res)=>{
     (err,result)=>{
         if(err)
         {
-            res.send(err);
+           res.send(err)
         }
         else if(result.length === 0)
         {
-            res.send("fail ")
+           res.send("fail")
         }
         else
         {
-            res.send("succes login successful");
+           res.send("success")
         }
     });
 });
