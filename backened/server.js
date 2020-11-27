@@ -12,6 +12,8 @@ app.use(cors());
 
 var auth = require('./queries/auth');
 app.use("/auth",auth);
+var dist = require('./queries/dist');
+app.use("/dist",dist);
 
 app.listen(8080);
 console.log("server start to listen on port 8080");
