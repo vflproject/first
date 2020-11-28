@@ -7,7 +7,7 @@ class LOGIN  extends React.Component {
   state = {
       username : "",
       password : "",
-      pp : "invalid username",
+      pp : "",
       redirect : false,
   }
   handleChangeusername = event => {
@@ -35,7 +35,7 @@ class LOGIN  extends React.Component {
         })}
         else{
             this.setState({
-                redirect:true
+               pp : "invalid username/password  again try it"
             })
         }
     })
@@ -53,8 +53,8 @@ render() {
            <label> username  : <input type="text" name="username" onChange={this.handleChangeusername}></input></label>
            <label>passwword  : <input type="password" name="password" onChange={this.handleChangepassword}></input></label>
            <button type="submit">LOGIN</button>
-    
          </form>
+         <p>{this.state.pp}</p>
     </div>
   );
 }
