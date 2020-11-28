@@ -5,12 +5,15 @@
            #ff{
                display: none;
            }
+           #addcrop{
+               display: none;
+           }
        </style>
     </head>
     <body>
         <h1>Home page <span id="DHuser"></span></h1>
         <button onclick="viewtalukas()">VIEW TALUKAS LIST</button>
-
+        <button onclick="distcrops()">VIEW OUR DISTRICT CROP</button>
         <div id="ff">
             <dv id="name">
                
@@ -18,6 +21,15 @@
         </div>
         <div id="detail">
             
+        </div>
+        <div id="addcrop">
+            <form onsubmit=cropinsert()>
+                <input type="text" id="cropid" placeholder="cropid"></input>
+                <input type="text" id="cropname" placeholder="cropname" value=""/>
+                <input type="number" id="cropcost" placeholder="crop cost" value=""/>
+                <input type="submit"/>
+                
+            </form>
         </div>
         <script src="home.js"></script>
     </body>

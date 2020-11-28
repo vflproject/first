@@ -1,5 +1,6 @@
 var list = [];
 var sublist = [];
+var cropslist = [];
 
 fetch("http://localhost:8080/dist/viewtalukas")
      .then(response=>{
@@ -11,6 +12,18 @@ fetch("http://localhost:8080/dist/viewtalukas")
          {
              var temp = `${data[j].talukname} <button onclick="talukdetail(${data[j].talukid})">view</button>`
              list.push(temp);
+         }
+})
+fetch("http://localhost:8080/dist/distcrop")
+     .then(response=>{
+        return response.json()
+     })
+     .then(data=>{
+         console.log(data.length)
+         for(var j=0;j<data.length;j++)
+         {
+             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].cropcost} <button onclick="EDIT(${data[j].cropname})">edit</button> <button onclick="deleteone(${data[j].cropid})">delete</button> `
+             cropslist.push(temp);
          }
 })
 async function postData(url = '', data = {})
@@ -27,6 +40,7 @@ async function postData(url = '', data = {})
          });
          return response.json();
   }
+//taluk detail view
 function detailview()
   {
          document.getElementById("detail").innerHTML="";
@@ -36,6 +50,7 @@ function detailview()
              document.getElementById("detail").innerHTML += namelist;
          }
   }
+//taluk detail fetch
 function talukdetail(id1){
    postData("http://localhost:8080/dist/talukdetail", {talukid:id1})
     .then(data => {
@@ -51,6 +66,7 @@ function talukdetail(id1){
         console.log(error);
     })
 }
+//taluk view
 function viewtalukas(){
     document.getElementById("name").innerHTML = "";
     for(var i=0;i<list.length;i++)
@@ -61,3 +77,66 @@ function viewtalukas(){
     var ff = document.getElementById("ff");
     ff.style.display = "block";
 }
+//crops details view
+function distcrops(){
+    document.getElementById("name").innerHTML = "";
+    for(var i=0;i<cropslist.length;i++)
+    {
+        var namelist = "<li>" +cropslist[i]+  "</li>";
+        document.getElementById("name").innerHTML += namelist;
+    }
+    var temp = `<button onclick="cropinsertform()">ADD NEW</button>`;
+    document.getElementById("name").innerHTML += temp;
+    var ff = document.getElementById("ff");
+    ff.style.display = "block";
+}
+//cropinsert form
+function cropinsertform(){
+    var addcrop = document.getElementById("addcrop");
+    addcrop.style.display = "block";
+}
+//this EDIT part is not completed 
+function EDIT(name)
+{
+   alert(name)
+}
+//delete crops
+function deleteone(id1){
+    fetch(`http://localhost:8080/dist/distcrop/delete/${id1}`)
+     .then(response => {
+         return response.json();
+     })
+     .then(data => {
+        window.location = "../district/home.html"
+     })
+     .catch((error)=>{
+        window.location = "../district/home.html";
+     })
+ }
+//insert new crop
+function cropinsert(){
+    var cid = document.getElementById("cropid").value;
+    var cname = document.getElementById("cropname").value;
+    var ccost = document.getElementById("cropcost").value;
+    postData("http://localhost:8080/dist/distcrop/addnew", {cropid:cid, cropname:cname, cropcost:ccost})
+     .then(data => {
+        var addcrop = document.getElementById("addcrop");
+        addcrop.style.display = "none";
+     })
+     .catch((error)=>{
+         console.log(error);
+     })
+ }
+ //edit it is not completed
+ function cropedit(id1){
+    var cname = document.getElementById("cropname").value;
+    var ccost = document.getElementById("cropcost").value;
+    postData(`http://localhost:8080/dist/distcrop/edit/${id1}`, {cropname:cname, cropcost:ccost})
+     .then(data => {
+        var addcrop = document.getElementById("addcrop");
+        addcrop.style.display = "none";
+     })
+     .catch((error)=>{
+         console.log(error);
+     })
+ }

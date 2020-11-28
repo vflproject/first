@@ -84,11 +84,11 @@ router.get("/distcrop/delete/:id",(req,res)=>{
     (err,result)=>{
         if(err)
         {
-            res.send("You cant delete it , but you can update it because it is already in use in talukas");
+           return  res.send("You cant delete it , but you can update it because it is already in use in talukas");
         }
         else
         {
-            res.send("successfully deleted");
+            return res.send("successfully deleted");
         }
     })
 })
