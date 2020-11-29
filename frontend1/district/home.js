@@ -1,7 +1,6 @@
 var list = [];
 var sublist = [];
 var cropslist = [];
-
 fetch("http://localhost:8080/dist/viewtalukas")
      .then(response=>{
         return response.json()
@@ -22,7 +21,7 @@ fetch("http://localhost:8080/dist/distcrop")
          console.log(data.length)
          for(var j=0;j<data.length;j++)
          {
-             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].cropcost} <button onclick="EDIT(${data[j].cropname})">edit</button> <button onclick="deleteone(${data[j].cropid})">delete</button> `
+             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].cropcost} <button onclick='EDIT(${data[j].cropid}, "${data[j].cropname}", ${data[j].cropcost})'>edit</button> <button onclick="deleteone(${data[j].cropid})">delete</button> `
              cropslist.push(temp);
          }
 })
@@ -80,6 +79,7 @@ function viewtalukas(){
 //crops details view
 function distcrops(){
     document.getElementById("name").innerHTML = "";
+    document.getElementById("detail").innerHTML = "";
     for(var i=0;i<cropslist.length;i++)
     {
         var namelist = "<li>" +cropslist[i]+  "</li>";
@@ -95,16 +95,12 @@ function cropinsertform(){
     var addcrop = document.getElementById("addcrop");
     addcrop.style.display = "block";
 }
-//this EDIT part is not completed 
-function EDIT(name)
-{
-   alert(name)
-}
+
 //delete crops
 function deleteone(id1){
     fetch(`http://localhost:8080/dist/distcrop/delete/${id1}`)
      .then(response => {
-         return response.json();
+         return response;
      })
      .then(data => {
         window.location = "../district/home.html"
@@ -127,11 +123,21 @@ function cropinsert(){
          console.log(error);
      })
  }
- //edit it is not completed
- function cropedit(id1){
-    var cname = document.getElementById("cropname").value;
-    var ccost = document.getElementById("cropcost").value;
-    postData(`http://localhost:8080/dist/distcrop/edit/${id1}`, {cropname:cname, cropcost:ccost})
+//EDIT PART
+ function EDIT(id,name,cost)
+{
+    document.getElementById("cropid1").value=id;
+    document.getElementById("cropname1").value=name;
+    document.getElementById("cropcost1").value=cost;
+    var editcrop = document.getElementById("editcrop");
+    editcrop.style.display = "block";
+}
+ //editing part
+ function cropedit(){
+    var cid = document.getElementById("cropid1").value;
+    var cname = document.getElementById("cropname1").value;
+    var ccost = document.getElementById("cropcost1").value;
+    postData(`http://localhost:8080/dist/distcrop/edit/${cid}`, {cropname:cname, cropcost:ccost})
      .then(data => {
         var addcrop = document.getElementById("addcrop");
         addcrop.style.display = "none";

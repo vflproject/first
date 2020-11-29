@@ -7,8 +7,9 @@ var router = express.Router();
 router.post('/login',(req,res)=>{
     var username = req.body.username;
     var password = req.body.password;
-
-    connection.query("select * from auth where username like '"+username+"' and password like '"+password+"' ",
+    var district = req.body.district;
+    var taluk = req.body.taluk;
+    connection.query("select * from auth where username like '"+username+"' and password like '"+password+"'",
     (err,result)=>{
         if(err)
         {
@@ -16,11 +17,11 @@ router.post('/login',(req,res)=>{
         }
         else if(result.length === 0)
         {
-           res.send("fail")
+           console.log("fail")
         }
         else
         {
-           res.send("success")
+           res.send(result)
         }
     });
 });
