@@ -12,6 +12,12 @@
            #addbalance{
                display: none;
            }
+           table,td,th{
+               border : 1px solid black;
+           }
+           #edit{
+               display: none;
+           }
        </style>
     </head>
     <body>
@@ -19,13 +25,13 @@
         <h1>welcome taluk</h1>
         <button onclick="viewcrops()">View our taluk crops list</button>
         <button onclick="viewfarmers()">view our farmers list</button>
-        <div id="view">
-           
-        </div>
+        <table id="view">
+         
+        </table>
        </div>
-       <div id="second">
+       <table id="second">
 
-       </div>
+       </table>
        <form onsubmit=addbalancevalue() id="addbalance">
            <input type="number" id="aa" value="" disabled />
            <label for="crp">crop select</label>
@@ -34,6 +40,12 @@
             </select>
             <input type="number" id="qq" placeholder="quantity"/>
             <input type="submit"/>
+       </form>
+       <form onsubmit=editing() id="edit">
+           <input type="number" value="" id="ad" disabled /> 
+           <input type="text" value="" id="fn"/>
+           <input type="number" value="" id="ac"/>
+           <input type="submit"/>
        </form>
     </body>
 </html>
