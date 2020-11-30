@@ -46,6 +46,19 @@ router.get("/distcrop",(req,res)=>{
         }
     })
 })
+router.get("/distcrop/onlycrop",(req,res)=>{
+    connection.query("select cropname from dist1",
+     (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        } 
+        else
+        {
+           res.send(result);
+        }
+     })
+})
 router.post("/distcrop/addnew",(req,res)=>{
     var cropid = req.body.cropid;
     var cropname = req.body.cropname;

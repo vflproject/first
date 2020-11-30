@@ -1,6 +1,9 @@
 var list = [];
 var sublist = [];
 var cropslist = [];
+
+
+//here all taluk list fetching
 fetch("http://localhost:8080/dist/viewtalukas")
      .then(response=>{
         return response.json()
@@ -13,6 +16,9 @@ fetch("http://localhost:8080/dist/viewtalukas")
              list.push(temp);
          }
 })
+
+
+//here our districts all crops fetching
 fetch("http://localhost:8080/dist/distcrop")
      .then(response=>{
         return response.json()
@@ -25,6 +31,9 @@ fetch("http://localhost:8080/dist/distcrop")
              cropslist.push(temp);
          }
 })
+
+
+//Global post data function
 async function postData(url = '', data = {})
   {
          const response = await fetch(url, {
@@ -39,7 +48,9 @@ async function postData(url = '', data = {})
          });
          return response.json();
   }
-//taluk detail view
+
+
+//taluk detail view html editor function
 function detailview()
   {
          document.getElementById("detail").innerHTML="";
@@ -49,7 +60,9 @@ function detailview()
              document.getElementById("detail").innerHTML += namelist;
          }
   }
-//taluk detail fetch
+
+
+//taluk detail fetch from backened function
 function talukdetail(id1){
    postData("http://localhost:8080/dist/talukdetail", {talukid:id1})
     .then(data => {
@@ -65,38 +78,62 @@ function talukdetail(id1){
         console.log(error);
     })
 }
-//taluk view
+
+
+//taluk view in html page function
 function viewtalukas(){
-    document.getElementById("name").innerHTML = "";
+    document.getElementById("ff").innerHTML = "";
     for(var i=0;i<list.length;i++)
     {
         var namelist = "<li>" +list[i]+  "</li>";
-        document.getElementById("name").innerHTML += namelist;
+        document.getElementById("ff").innerHTML += namelist;
     }
     var ff = document.getElementById("ff");
     ff.style.display = "block";
 }
-//crops details view
+
+
+//crops details view in html page function
 function distcrops(){
-    document.getElementById("name").innerHTML = "";
+    document.getElementById("ff").innerHTML = "";
     document.getElementById("detail").innerHTML = "";
     for(var i=0;i<cropslist.length;i++)
     {
         var namelist = "<li>" +cropslist[i]+  "</li>";
-        document.getElementById("name").innerHTML += namelist;
+        document.getElementById("ff").innerHTML += namelist;
     }
     var temp = `<button onclick="cropinsertform()">ADD NEW</button>`;
-    document.getElementById("name").innerHTML += temp;
+    document.getElementById("ff").innerHTML += temp;
     var ff = document.getElementById("ff");
     ff.style.display = "block";
 }
-//cropinsert form
+
+
+//cropinsert form open here
 function cropinsertform(){
     var addcrop = document.getElementById("addcrop");
     addcrop.style.display = "block";
 }
 
-//delete crops
+
+//insert new crop here with backened 
+function cropinsert(){
+    var cid = document.getElementById("cropid").value;
+    var cname = document.getElementById("cropname").value;
+    var ccost = document.getElementById("cropcost").value;
+    postData("http://localhost:8080/dist/distcrop/addnew", {cropid:cid, cropname:cname, cropcost:ccost})
+     .then(data => {
+        var addcrop = document.getElementById("addcrop");
+        addcrop.style.display = "none";
+        
+     })
+     .catch((error)=>{
+         console.log(error);
+     })
+ }
+
+
+//delete crops with backened
 function deleteone(id1){
     fetch(`http://localhost:8080/dist/distcrop/delete/${id1}`)
      .then(response => {
@@ -109,21 +146,9 @@ function deleteone(id1){
         window.location = "../district/home.html";
      })
  }
-//insert new crop
-function cropinsert(){
-    var cid = document.getElementById("cropid").value;
-    var cname = document.getElementById("cropname").value;
-    var ccost = document.getElementById("cropcost").value;
-    postData("http://localhost:8080/dist/distcrop/addnew", {cropid:cid, cropname:cname, cropcost:ccost})
-     .then(data => {
-        var addcrop = document.getElementById("addcrop");
-        addcrop.style.display = "none";
-     })
-     .catch((error)=>{
-         console.log(error);
-     })
- }
-//EDIT PART
+
+
+//EDIT PART and form open here
  function EDIT(id,name,cost)
 {
     document.getElementById("cropid1").value=id;
@@ -132,7 +157,9 @@ function cropinsert(){
     var editcrop = document.getElementById("editcrop");
     editcrop.style.display = "block";
 }
- //editing part
+
+
+ //editing part fetch and post here
  function cropedit(){
     var cid = document.getElementById("cropid1").value;
     var cname = document.getElementById("cropname1").value;

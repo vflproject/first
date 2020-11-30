@@ -8,7 +8,7 @@ var router = express.Router();
 //view our taluk crops
 router.get('/viewcrops/:id',(req,res)=>{
     var talukid = req.params.id;
-    connection.query("select * from crop where talukno="+talukid+"", 
+    connection.query("select cropid,cropname,produce,requirement from crop,dist1 where cropid=cropno and talukno like "+talukid+"", 
     (err,result)=>{
         if(err)
         {
@@ -54,6 +54,26 @@ router.get('/viewfarmers/:id',(req,res)=>{
         }
     })
 });
+
+
+//view a single farmer based on aadhar number
+router.get('/viewfarmers/:id1/:id2',(req,res)=>{
+    var talukid = req.params.id1;
+    var aadharno = req.params.id2;
+    connection.query("select * from farmer where talukno="+talukid+" and aadharno="+aadharno+"", 
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(result);
+        }
+    })
+});
+
+
 //EDIT FARMER DETAILS
 router.post('/editfarmer/:tid/:fid',(req,res)=>{
     var talukid = req.params.tid;
@@ -73,5 +93,51 @@ router.post('/editfarmer/:tid/:fid',(req,res)=>{
         }
     })
 });
-//
+//add balance
+router.get('/addbalancetofarmer/:id1/:id2/:id3',(req,res)=>{
+    var cropname = req.params.id2;
+    var aadharno = req.params.id1;
+    var quant = req.params.id3;
+    /*
+     delimiter //
+mysql> create procedure addbalance(name varchar(20), aadhar int, quantitude int)
+    -> begin
+    -> update farmer set balance=balance+(select (cropcost*quantitude) from dist1 where cropname=name) where aadharno=aadhar;
+    -> end //
+    */
+    connection.query("call addbalance('"+cropname+"',"+aadharno+","+quant+")", 
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(result);
+        }
+    })
+});
+router.get('/payment/:id1/:id2',(req,res)=>{
+    var aadharno = req.params.id1;
+    var payu = req.params.id2;
+    /*
+     create procedure editmoney(aadhar int, payu int)
+    -> begin
+    -> update farmer set balance = balance-payu where aadharno=aadhar;
+    -> update farmer set paid = paid+payu where aadharno=aadhar;
+    -> end
+    -> //
+    */
+    connection.query("call editmoney("+aadharno+","+payu+")",
+    (err,result)=>{
+        if(result)
+        {
+        res.send("success") 
+        }
+        else{
+            res.send(err);
+        }
+    });
+})
+
 module.exports = router;

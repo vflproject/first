@@ -9,29 +9,38 @@
         #view{
             display: none;
         }
+        #dis{
+            display: none;
+        }
+        #tal{
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <form onsubmit=logindatas() action="" method="">
-    <input type="text" name="username" id="username" placeholder="username">
-    <input type="password" id="password" name="password">
-    <label for="dist">choose a district</label>
-    <select id="dist">
-        <option value="udupi">UDUPI</option>
-        <option value="mysore">MYSORE</option>
-        <option value="gulbarga">GULBARGA</option>
-    </select>
-    <label for="taluk">choose a taluk</label>
-    <select id="taluk">
-        <option value="hunsur">hunsur</option>
-        <option value="">district owner</option>
-        <option value="sargur">sargur</option>
-    </select>
-    <input type="submit">
+    <div id="first">
+    <button onclick="dis()">DISTRICT WORKER</button>
+    <button onclick="tal()">TALUK WORKER</button>
+    </div>
+    <form onsubmit=logindatas() action="" method="" id="dis">
+       <input type="text" name="username" id="username" placeholder="username">
+       <input type="password" id="password" name="password" placeholder="password">
+       <input type="submit">
     </form>
+    <form onsubmit=logindatastaluk() action="" method="" id="tal">
+        <input type="text" name="username" id="username" placeholder="username">
+        <input type="password" id="password" name="password" placeholder="password">
+        <input type="number" id="tno" name="talukno" placeholder="talukid"/>
+        <!-- <label for="tno">choose your taluk</label>
+        <selection id="tno">
+              <option value=1>1</option>
+              <option value=2>2</option>
+              <option value=3>3</option>
+        </selection> -->
+        <input type="submit">
+     </form>
     <div id="view">
          <h1>sosos</h1>
     </div>
-    <a href="../district/home.html">hi</a>
 </body>
 </html>

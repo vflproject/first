@@ -1,9 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+       <script src="home.js"></script>
+       <style>
+           #firstdisplay{
+               display: block;
+           }
+           #second{
+               display: none;
+           }
+           #addbalance{
+               display: none;
+           }
+       </style>
     </head>
     <body>
-        <h1>hi welcome everyone its taluk home page</h1>
+        <div id="firstdisplay">
+        <h1>welcome taluk</h1>
+        <button onclick="viewcrops()">View our taluk crops list</button>
+        <button onclick="viewfarmers()">view our farmers list</button>
+        <div id="view">
+           
+        </div>
+       </div>
+       <div id="second">
+
+       </div>
+       <form onsubmit=addbalancevalue() id="addbalance">
+           <input type="number" id="aa" value="" disabled />
+           <label for="crp">crop select</label>
+            <select id="crp">
+                
+            </select>
+            <input type="number" id="qq" placeholder="quantity"/>
+            <input type="submit"/>
+       </form>
     </body>
 </html>
