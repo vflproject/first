@@ -1,25 +1,27 @@
-var tid = 1;
-var list = [];
+
+var tid=1;
 var sublist = [];
-var megasublist = []
+var list = [];
+var megasublist = [];
 var eachlist = [];
 var megaeachsublist = [];
 var crops = [];
-fetch(`http://localhost:8080/taluk/viewcrops/${tid}`)
+
+fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
      .then(response => {
          return response.json();
      })
      .then(data => {
          for(var j=0;j<data.length;j++)
          {
-             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
-             list.push(temp);
+             var temp =  `${data[j].cropname}`
+             crops.push(temp);
          }
      })
      .catch((error)=>{
         console.log(error)
      })
-fetch(`http://localhost:8080/taluk/viewfarmers/${tid}`)
+     fetch(`http://localhost:8080/taluk/viewfarmers/${tid}`)
      .then(response => {
          return response.json();
      })
@@ -42,24 +44,27 @@ fetch(`http://localhost:8080/taluk/viewfarmers/${tid}`)
              megasublist.push(sublist);
              sublist =[];
          }
+         viewfarmershtmlset();
      })
      .catch((error)=>{
         console.log(error)
      })  
-fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
+     fetch(`http://localhost:8080/taluk/viewcrops/${tid}`)
      .then(response => {
          return response.json();
      })
      .then(data => {
          for(var j=0;j<data.length;j++)
          {
-             var temp =  `${data[j].cropname}`
-             crops.push(temp);
+             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
+             list.push(temp);
          }
+         viewcropshtmlset();
      })
      .catch((error)=>{
         console.log(error)
      })
+
 //Global post data function
 async function postData(url = '', data = {})
   {
@@ -76,17 +81,18 @@ async function postData(url = '', data = {})
          return response.json();
   }
 function viewcrops()
-     {
-            document.getElementById("view").innerHTML="";
+{
+           document.getElementById("view").innerHTML = "";
             for(var i=0;i<list.length;i++)
             {
                 var namelist = "<li>" +list[i]+  "</li>";
                 document.getElementById("view").innerHTML += namelist;
             }
-     }
+}
+
 function viewfarmers()
      {
-         document.getElementById("view").innerHTML="";
+        document.getElementById("view").innerHTML = "";
          var namelist = "<tr> <th>aadharno</th><th>farmername</th><th>account no</th><th>balance</th><th>paid</th> </tr>";
          document.getElementById("view").innerHTML += namelist;
          for(var i=0;i<megasublist.length;i++)
@@ -103,7 +109,7 @@ function viewfarmers()
      }
 function addbalance(ano)
 {
-    var ab = document.getElementById("addbalance").style.display = "block";
+    document.getElementById("addbalance").style.display = "block";
     document.getElementById("aa").value = ano;
     for(var i=0;i<crops.length;i++)
     {

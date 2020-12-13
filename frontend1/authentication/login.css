@@ -7,3 +7,13 @@
 #tal{
     display: none;
 }
+#dontshow
+{
+    display: none;
+}
+#changepassword{
+    display: none;
+}
+#pass{
+    display: none;
+}

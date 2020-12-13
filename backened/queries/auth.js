@@ -23,11 +23,42 @@ router.post('/login',(req,res)=>{
         }
     });
 });
+router.post("/loginmail", (req,res)=>{
+   var idd = req.body.idd;
+   var nn = "suhas"
+   if(idd===0)
+   {
+      connection.query("select email from authd where username like '"+nn+"'",
+      (err,result)=>{
+           if(err)
+           {
+              res.send(err);
+           }
+           else
+           {
+              res.send(result);
+           } 
+      })
+   }
+   else
+   {
+      connection.query("select email from auth where talukno = "+idd+"",
+      (err,result)=>{
+           if(err)
+           {
+              res.send(err);
+           }
+           else{
+              res.send(result);
+           } 
+      })
+   }
+})
 router.post('/logint',(req,res)=>{
    var username = req.body.username;
    var password = req.body.password;
    var talukno = req.body.talukno;
-   connection.query("select * from auth where username like '"+username+"' and password like '"+password+"' and talukno like "+talukno+"",
+   connection.query("select * from auth where username='"+username+"' and password='"+password+"' and talukno="+talukno+"",
    (err,result)=>{
        if(err)
        {
@@ -35,13 +66,48 @@ router.post('/logint',(req,res)=>{
        }
        else if(result.length === 0)
        {
-          console.log("fail")
+          res.send({
+             "name" : "failure"
+          })
        }
        else
        {
-          res.send(result)
+          res.send({
+             "name" : "success"
+          })
        }
    });
 });
+router.post('/loginedit',(req,res)=>{
+      var password = req.body.password;
+      var tno1 = req.body.tno;
+      var tno = parseInt(tno1);
+      if(tno===0)
+      {
+         connection.query("update authd set password='"+password+"'",
+         (err,result)=>{
+            if(err)
+            {
+               console.log(err);
+            }
+            else{
+               res.send(result)
+            }
+         })
+      }
+      else
+      {
+         connection.query("update auth set password='"+password+"' where talukno="+tno+" ",
+         (err,result)=>{
+            if(err)
+            {
+               console.log(err);
+            }
+            else{
+               console.log("success");
+            }
+         })
+      }
+})
 
 module.exports = router;
