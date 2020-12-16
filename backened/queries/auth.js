@@ -109,5 +109,29 @@ router.post('/loginedit',(req,res)=>{
          })
       }
 })
-
+router.post('/currentedit',(req,res)=>{
+   var curid = req.body.id;
+   connection.query("update currentuser set number="+curid+"",
+   (err,result)=>{
+      if(err)
+      {
+         console.log(err);
+      }
+      else{
+         res.send("success")
+      }
+   })
+})
+router.get('/getuser',(req,res)=>{
+   connection.query("select number from currentuser",
+   (err,result)=>{
+      if(err)
+      {
+         console.log(err)
+      }
+      else{
+         res.send(result);
+      }
+   })
+})
 module.exports = router;

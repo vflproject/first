@@ -1,12 +1,21 @@
 
-var tid=1;
+var tid;
 var sublist = [];
 var list = [];
 var megasublist = [];
 var eachlist = [];
 var megaeachsublist = [];
 var crops = [];
-
+fetch(`http://localhost:8080/auth/getuser`)
+.then(response => {
+    return response.json();
+})
+.then(data=>{
+    tid = data[0].number
+})
+.catch((error)=>{
+   console.log(error)
+})
 fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
      .then(response => {
          return response.json();
@@ -17,49 +26,6 @@ fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
              var temp =  `${data[j].cropname}`
              crops.push(temp);
          }
-     })
-     .catch((error)=>{
-        console.log(error)
-     })
-     fetch(`http://localhost:8080/taluk/viewfarmers/${tid}`)
-     .then(response => {
-         return response.json();
-     })
-     .then(data => {
-         
-         for(var j=0;j<data.length;j++)
-         {
-             var temp =  `${data[j].aadharno}`   
-             sublist.push(temp);
-             var temp = `${data[j].farmername}` 
-             sublist.push(temp);  
-             var temp = `${data[j].accountno}`   
-             sublist.push(temp);
-             var temp = `${data[j].balance}`  
-             sublist.push(temp);
-             var temp = `${data[j].paid}`
-             sublist.push(temp);
-             var temp = `<button onclick="farmerdetail(${data[j].aadharno})">view</button>`
-             sublist.push(temp);
-             megasublist.push(sublist);
-             sublist =[];
-         }
-         viewfarmershtmlset();
-     })
-     .catch((error)=>{
-        console.log(error)
-     })  
-     fetch(`http://localhost:8080/taluk/viewcrops/${tid}`)
-     .then(response => {
-         return response.json();
-     })
-     .then(data => {
-         for(var j=0;j<data.length;j++)
-         {
-             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
-             list.push(temp);
-         }
-         viewcropshtmlset();
      })
      .catch((error)=>{
         console.log(error)
@@ -82,6 +48,25 @@ async function postData(url = '', data = {})
   }
 function viewcrops()
 {
+    fetch(`http://localhost:8080/taluk/viewcrops/${tid}`)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        list = [];
+        for(var j=0;j<data.length;j++)
+        {
+            var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
+            list.push(temp);
+        }
+        viewcrops1();
+    })
+    .catch((error)=>{
+       console.log(error)
+    })
+}
+function viewcrops1()
+{
            document.getElementById("view").innerHTML = "";
             for(var i=0;i<list.length;i++)
             {
@@ -89,8 +74,40 @@ function viewcrops()
                 document.getElementById("view").innerHTML += namelist;
             }
 }
-
 function viewfarmers()
+{
+    fetch(`http://localhost:8080/taluk/viewfarmers/${tid}`)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        sublist = [];
+        megasublist = [];
+        for(var j=0;j<data.length;j++)
+        {
+            var temp =  `${data[j].aadharno}`   
+            sublist.push(temp);
+            var temp = `${data[j].farmername}` 
+            sublist.push(temp);  
+            var temp = `${data[j].accountno}`   
+            sublist.push(temp);
+            var temp = `${data[j].balance}`  
+            sublist.push(temp);
+            var temp = `${data[j].paid}`
+            sublist.push(temp);
+            var temp = `<button onclick="farmerdetail(${data[j].aadharno})">view</button>`
+            sublist.push(temp);
+            megasublist.push(sublist);
+            sublist =[];
+        }
+        viewfarmers1();
+        
+    })
+    .catch((error)=>{
+       console.log(error)
+    })  
+}
+function viewfarmers1()
      {
         document.getElementById("view").innerHTML = "";
          var namelist = "<tr> <th>aadharno</th><th>farmername</th><th>account no</th><th>balance</th><th>paid</th> </tr>";

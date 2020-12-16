@@ -1,5 +1,6 @@
 var otp;
 var idd;
+
 //district form open here
 function dis()
 {
@@ -52,7 +53,8 @@ function logindatas(){
 function logindatastaluk(){
     var username = document.getElementById("usernamet").value;
     var password = document.getElementById("passwordt").value;
-    talukno = document.getElementById("tno").value;
+    var talukno = document.getElementById("tno").value;
+    localStorage.setItem("tn",talukno);
     postData("http://localhost:8080/auth/logint", {username:username,password:password,talukno:talukno})
     .then(data => {
             document.getElementById("dontshow").value = data.name;
@@ -60,11 +62,22 @@ function logindatastaluk(){
             alert(pp);
             if(pp ==="success")
             {
-                location.assign("http://localhost:8080/home.html")
+               location.assign("http://localhost:8080/work.html");
             }
     })
     .catch((error)=>{
         document.write(error)
+    })
+}
+function work()
+{
+    var ppp = localStorage.getItem("tn");
+    postData("http://localhost:8080/auth/currentedit", {id:ppp})
+    .then(data=>{
+        location.assign("http://localhost:8080/home.html")
+    })
+    .catch((error)=>{
+        location.assign("http://localhost:8080/home.html")
     })
 }
 function takemail()
