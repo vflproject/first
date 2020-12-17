@@ -1,20 +1,33 @@
-
 var tid;
+var tname;
+var username;
 var sublist = [];
 var list = [];
 var megasublist = [];
 var eachlist = [];
 var megaeachsublist = [];
 var crops = [];
+
 fetch(`http://localhost:8080/auth/getuser`)
 .then(response => {
     return response.json();
 })
 .then(data=>{
-    tid = data[0].number
+     tid = data[0].number
 })
 .catch((error)=>{
-   console.log(error)
+   res.send(error)
+})
+fetch(`http://localhost:8080/auth/getuserdetail`)
+.then(response => {
+    return response.json();
+})
+.then(data=>{
+    document.getElementById("talukname").innerHTML = tname = data[0].talukname;
+    document.getElementById("username").innerHTML = username = data[0].username;
+})
+.catch((error)=>{
+   res.send(error)
 })
 fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
      .then(response => {
@@ -31,6 +44,10 @@ fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
         console.log(error)
      })
 
+     if(tid==0)
+     {
+         document.getElementById("login").style.display = "block";
+     }
 //Global post data function
 async function postData(url = '', data = {})
   {
@@ -228,4 +245,22 @@ function farmerdetail(id)
              document.getElementById("second").innerHTML += namelist;
          }
      })
+}
+function logout()
+{
+    postData("http://localhost:8080/auth/currentedit", {id:0})
+    .then(data=>{
+         document.getElementById("openclose").style.display = "none";
+         document.getElementById("login").style.display = "block";
+         document.getElementById("logout").style.display = "none";
+    })
+    .catch((error)=>{
+        document.getElementById("openclose").style.display = "none";
+         document.getElementById("login").style.display = "block";
+         document.getElementById("logout").style.display = "none";
+    })
+}
+function login()
+{
+    location.assign("http://localhost:8080/login.html");
 }

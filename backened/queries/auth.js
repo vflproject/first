@@ -134,4 +134,16 @@ router.get('/getuser',(req,res)=>{
       }
    })
 })
+router.get('/getuserdetail',(req,res)=>{
+   connection.query("select username,talukname from taluka,auth where talukno=talukid and talukid=(select number from currentuser)",
+   (err,result)=>{
+      if(err)
+      {
+         console.log(err);
+      }
+      else{
+         res.send(result);
+      }
+   })
+})
 module.exports = router;

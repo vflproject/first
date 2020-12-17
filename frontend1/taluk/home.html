@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <script src="home.js"></script>
+      <style>
+          #login{
+              display: none;
+          }
+      </style>
     
        <link rel="stylesheet" href="./home.css">
     </head>
     <body>
+        <nav>
+           <p> username: <strong><i id="username">username</i></strong>   Talukname : <strong> <i id="talukname">talukname</i></strong>
+           <button id="login" onclick="login()">LOGIN</button>  <button id="logout" onclick="logout()">LOGOUT</button></p>
+        </nav>
+        <div id="openclose">
         <div id="firstdisplay">
         <h1>welcome taluk</h1>
         <button onclick="viewcrops()">View our taluk crops list</button>
@@ -32,6 +41,9 @@
            <input type="number" value="" id="ac"/>
            <input type="submit"/>
        </form>
-     
+      </div>
+     <script src="home.js">
+        
+     </script>
     </body>
 </html>

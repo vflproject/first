@@ -173,3 +173,11 @@ function deleteone(id1){
          console.log(error);
      })
  }
+ function login()
+{
+    location.assign("http://localhost:8080/login.html");
+}
+function logout()
+{
+    document.getElementById("closeopen").style.display = "none";
+}
