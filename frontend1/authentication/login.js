@@ -1,12 +1,16 @@
 var otp;
 var idd;
-
+function forgotpass()
+{
+    document.getElementById("changepassword").style.display = "block";
+    document.getElementById("first").style.display = "none";
+}
 //district form open here
 function dis()
 {
    document.getElementById("dis").style.display="block";
    document.getElementById("first").style.display="none";
-   document.getElementById("changepassword").style.display="block";
+   
 }
 
 
@@ -15,7 +19,7 @@ function tal()
 {
    document.getElementById("tal").style.display="block";
    document.getElementById("first").style.display="none";
-   document.getElementById("changepassword").style.display="block";
+   
 } 
 
 //Global post data function
