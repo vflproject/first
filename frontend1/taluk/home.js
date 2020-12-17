@@ -255,9 +255,11 @@ function logout()
          document.getElementById("logout").style.display = "none";
     })
     .catch((error)=>{
-        document.getElementById("openclose").style.display = "none";
-         document.getElementById("login").style.display = "block";
-         document.getElementById("logout").style.display = "none";
+        // document.getElementById("openclose").style.display = "none";
+        //  document.getElementById("login").style.display = "block";
+        //  document.getElementById("logout").style.display = "none";
+        location.assign("http://localhost:8080/login.html");
+
     })
 }
 function login()

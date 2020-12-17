@@ -4,6 +4,13 @@ var cropslist = [];
 
 
 //here all taluk list fetching
+fetch("http://localhost:8080/auth/getbydist")
+   .then(response=>{
+       return response.json();
+   })
+   .then(data=>{
+       document.getElementById("username").innerHTML = data[0].username;
+   })
 fetch("http://localhost:8080/dist/viewtalukas")
      .then(response=>{
         return response.json()
@@ -140,10 +147,10 @@ function deleteone(id1){
          return response;
      })
      .then(data => {
-        window.location = "../district/home.html"
+        location.assign("http://localhost:8080/homed.html")
      })
      .catch((error)=>{
-        window.location = "../district/home.html";
+        location.assign("http://localhost:8080/homed.html")
      })
  }
 
@@ -181,3 +188,4 @@ function logout()
 {
     document.getElementById("closeopen").style.display = "none";
 }
+

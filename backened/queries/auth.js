@@ -2,6 +2,7 @@ var con = require('../connection');
 var connection = con.getConnection();
 connection.connect();
 var express = require('express');
+const { UV_FS_O_FILEMAP } = require('constants');
 var router = express.Router();
 
 router.post('/login',(req,res)=>{
@@ -142,6 +143,19 @@ router.get('/getuserdetail',(req,res)=>{
          console.log(err);
       }
       else{
+         res.send(result);
+      }
+   })
+})
+router.get('/getbydist',(req,res)=>{
+   connection.query("select username from authd",
+   (err,result)=>{
+      if(err)
+      {
+         console.log(err);
+      }
+      else
+      {
          res.send(result);
       }
    })
