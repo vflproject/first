@@ -1,9 +1,28 @@
 var list = [];
 var sublist = [];
 var cropslist = [];
-
-
+var idlist = [];
+var finalview = [];
+var b=0;
+var did;
 //here all taluk list fetching
+
+fetch(`http://localhost:8080/auth/getuser`)
+.then(response => {
+    return response.json();
+})
+.then(data=>{
+     var vv = data[0].number;
+     localStorage.setItem("tt",vv);
+     cchn();
+})
+
+function cchn()
+{
+    did = localStorage.getItem("tt");
+    alert(did);
+    if(did==-1)
+{
 fetch("http://localhost:8080/auth/getbydist")
    .then(response=>{
        return response.json();
@@ -19,12 +38,13 @@ fetch("http://localhost:8080/dist/viewtalukas")
          console.log(data.length)
          for(var j=0;j<data.length;j++)
          {
-             var temp = `${data[j].talukname} <button onclick="talukdetail(${data[j].talukid})">view</button>`
+             var temp = `${data[j].talukname}`
+             idlist.push(data[j].talukid)
              list.push(temp);
          }
-})
-
-
+         hh();
+}
+)
 //here our districts all crops fetching
 fetch("http://localhost:8080/dist/distcrop")
      .then(response=>{
@@ -38,6 +58,31 @@ fetch("http://localhost:8080/dist/distcrop")
              cropslist.push(temp);
          }
 })
+}
+}
+
+function hh()
+{
+    for(var d=0;d<idlist.length;d++)
+    {
+    var id1 = idlist[d];
+    postData("http://localhost:8080/dist/talukdetail", {talukid:id1})
+    .then(data => {
+        sublist = [];
+        for(var j=0;j<data.length;j++)
+        {
+            var temp = `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}kg   ${data[j].requirement}kg`
+            sublist.push(temp);
+        }
+        detailview();
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+    }
+}
+
+
 
 
 //Global post data function
@@ -61,42 +106,42 @@ async function postData(url = '', data = {})
 function detailview()
   {
          document.getElementById("detail").innerHTML="";
+         var ppp = "";
          for(var i=0;i<sublist.length;i++)
          {
-             var namelist = "<li>" +sublist[i]+  "</li>";
-             document.getElementById("detail").innerHTML += namelist;
+             ppp += "<li>" +sublist[i]+  "</li>";
          }
+         finalview[b++] = ppp;
   }
-
-
-//taluk detail fetch from backened function
-function talukdetail(id1){
-   postData("http://localhost:8080/dist/talukdetail", {talukid:id1})
-    .then(data => {
-        sublist = [];
-        for(var j=0;j<data.length;j++)
-        {
-            var temp = `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}kg   ${data[j].requirement}kg`
-            sublist.push(temp);
-        }
-        detailview();
-    })
-    .catch((error)=>{
-        console.log(error);
-    })
-}
 
 
 //taluk view in html page function
 function viewtalukas(){
     document.getElementById("ff").innerHTML = "";
+    document.getElementById("edd").style.display = "none";
     for(var i=0;i<list.length;i++)
     {
-        var namelist = "<li>" +list[i]+  "</li>";
+        var namelist = "<div class='collapsible'>" +list[i]+  "</div>";
         document.getElementById("ff").innerHTML += namelist;
+        var name1list = `<div class='content'>` + finalview[i] +  `</div>`;
+        document.getElementById("ff").innerHTML += name1list;
     }
     var ff = document.getElementById("ff");
     ff.style.display = "block";
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+    content.style.display = "none";
+    } else {
+    content.style.display = "block";
+    }
+    });
+    }
 }
 
 
@@ -158,6 +203,7 @@ function deleteone(id1){
 //EDIT PART and form open here
  function EDIT(id,name,cost)
 {
+    document.getElementById("edd").style.display = "block";
     document.getElementById("cropid1").value=id;
     document.getElementById("cropname1").value=name;
     document.getElementById("cropcost1").value=cost;
@@ -186,6 +232,16 @@ function deleteone(id1){
 }
 function logout()
 {
-    document.getElementById("closeopen").style.display = "none";
+    postData("http://localhost:8080/auth/currentedit", {id:0})
+    .then(data=>{
+        location.assign("http://localhost:8080/login.html");  
+    })
+    .catch((error)=>{
+        // document.getElementById("openclose").style.display = "none";
+        //  document.getElementById("login").style.display = "block";
+        //  document.getElementById("logout").style.display = "none";
+        location.assign("http://localhost:8080/login.html");
+
+    })
 }
 
