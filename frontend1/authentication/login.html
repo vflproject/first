@@ -5,45 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="login.js"></script>
-    <script src="../taluk/home.js"></script>
+    
     <script src= 
 	"https://smtpjs.com/v3/smtp.js"> 
 </script> 
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<style>
+    body{
+        background-image: url(images/agriculture.jpeg);
+    }
+</style>
 </head>
 <body>
+    <button id="rf" onclick="refresh()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg></button>
     <div id="first">
-    <button onclick="dis()">DISTRICT WORKER</button>
-    <button onclick="tal()">TALUK WORKER</button>
+    <button onclick="dis()" class="btn1">DISTRICT WORKER</button>
+    <button onclick="tal()" class="btn1">TALUK WORKER</button>
     </div>
-    <form onsubmit=logindatas() action="" method="" id="dis">
+    <!-- <form onsubmit=logindatas() action="" method="" id="dis">
        <input type="text" name="username" id="username" placeholder="username">
        <input type="password" id="password" name="password" placeholder="password">
        <input type="submit">
-    </form>
-    <form onsubmit=logindatastaluk() action="" method="" id="tal">
-        <input type="text" name="usernamet" id="usernamet" placeholder="username">
-        <input type="password" id="passwordt" name="passwordt" placeholder="password">
-        <input type="number" id="tno" name="talukno" placeholder="talukid"/>
-        <input type="submit">
-     </form>
-     <form method="post" id="changepassword"> 
-        <select id="who">
-            <option value="0">ditrict owner</option>
-            <option value="1">Hunsur</option>
-            <option value="2">piriyapattan</option>
-            <option value="3">Sargur</option>
-        </select> 
-        <input type="button" value="select & Send Email to change password"
-            onclick="takemail()" /> 
-    </form> 
-    <button id="rf" onclick="refresh()">BACK</button>
-    <br/>
-    <button id="fp" onclick="forgotpass()">Forgot Password</button>
-     <input type="text" value="" id="dontshow">
-     <form id="pass" onsubmit=passchange()>
-        <input type="text" id="pa" placeholder="Enter new password">
-        <input type="submit">
-     </form>
+    </form> -->
+
+
+    <div class="container" id="login1">
+        <form onsubmit=logindatas() action="" method="" id="dis">
+            <div class="row mb-3">
+              <label for="username" class="col-sm-2 col-form-label">User id</label>
+              <div class="col-sm-10">
+                <input type="text" name="username" id="username" class="form-control">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="password" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input type="password" id="password" name="password" class="form-control" >
+              </div>
+            </div>
+            
+           
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </form>
+          
+          <form onsubmit=logindatastaluk() action="" method="" id="tal">
+            
+            <div class="row mb-3">
+                <label for="usernamet" class="col-sm-2 col-form-label">User id</label>
+                <div class="col-sm-10">
+                  <input type="text" name="usernamet" id="usernamet" class="form-control">
+                </div>
+              </div>
+            <!-- <input type="text" name="usernamet" id="usernamet" placeholder="username"> -->
+            <div class="row mb-3">
+                <label for="passwordt" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" id="passwordt" name="passwordt" class="form-control" >
+                </div>
+            </div>
+            <!-- <input type="password" id="passwordt" name="passwordt" placeholder="password"> -->
+            <div class="row mb-3">
+                <label for="tno" class="col-sm-2 col-form-label">Taluka Id</label>
+                <div class="col-sm-10">
+                  <input type="number" id="tno" name="talukno" class="form-control" >
+                </div>
+            </div>
+            <!-- <input type="number" id="tno" name="talukno" placeholder="talukid"/> -->
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            <!-- <input type="submit"> -->
+         </form>
+
+          <a href="#" id="fp" onclick="forgotpass()">Forgot password? click here</a>
+          
+          <form method="post" id="changepassword"> 
+            <select id="who" class="btn btn-primary">
+                <option value="0">ditrict owner</option>
+                <option value="1">Hunsur</option>
+                <option value="2">piriyapattan</option>
+                <option value="3">Sargur</option>
+            </select> 
+            <br>
+            <br>
+            <input type="button" id="gg" value="select & Send Email to change password"
+            class="btn btn-primary" onclick="takemail()" /> 
+        </form> 
+        
+        <br/>
+        
+         <input type="text" value="" id="dontshow">
+         <form id="pass" onsubmit=passchange()>
+            <input type="text" id="pa" placeholder="Enter new password">
+            <input type="submit">
+         </form>
+    </div>
+    
+
+
+    
+     
 </body>
 </html>

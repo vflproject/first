@@ -1,22 +1,12 @@
-var otp;
+/*var otp;
 var idd;
-function forgotpass()
-{
-    document.getElementById("changepassword").style.display = "block";
-    document.getElementById("first").style.display = "none";
-    document.getElementById("dis").style.display="none";
-   document.getElementById("tal").style.display="none";
-   document.getElementById("fp").style.display="none";
-}
+
 //district form open here
 function dis()
 {
    document.getElementById("dis").style.display="block";
    document.getElementById("first").style.display="none";
-   document.getElementById("rf").style.display = "block";
-   document.getElementById("fp").style.display = "block";
-   document.getElementById("login1").style.display="block";
-
+   document.getElementById("changepassword").style.display="block";
 }
 
 
@@ -25,9 +15,7 @@ function tal()
 {
    document.getElementById("tal").style.display="block";
    document.getElementById("first").style.display="none";
-   document.getElementById("rf").style.display = "block";
-    document.getElementById("fp").style.display = "block";
-    document.getElementById("login1").style.display="block";
+   document.getElementById("changepassword").style.display="block";
 } 
 
 //Global post data function
@@ -50,10 +38,10 @@ async function postData(url = '', data = {})
 function logindatas(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    localStorage.setItem("dn","-1");
+    
     postData("http://localhost:8080/auth/login", {username:username,password:password})
     .then(data => {
-        location.assign("http://localhost:8080/work1.html");
+            location.assign("http://localhost:8080/homed.html");
     })
     .catch((error)=>{
         console.log(error);
@@ -66,7 +54,6 @@ function logindatastaluk(){
     var username = document.getElementById("usernamet").value;
     var password = document.getElementById("passwordt").value;
     var talukno = document.getElementById("tno").value;
-    localStorage.setItem("tn",talukno);
     postData("http://localhost:8080/auth/logint", {username:username,password:password,talukno:talukno})
     .then(data => {
             document.getElementById("dontshow").value = data.name;
@@ -74,38 +61,11 @@ function logindatastaluk(){
             alert(pp);
             if(pp ==="success")
             {
-               location.assign("http://localhost:8080/work.html");
+                location.assign("http://localhost:8080/home.html")
             }
     })
     .catch((error)=>{
         document.write(error)
-    })
-}
-function work()
-{
-    var ppp = localStorage.getItem("tn");
-    delete localStorage.tn;
-    postData("http://localhost:8080/auth/currentedit", {id:ppp})
-    .then(data=>{
-        
-        location.assign("http://localhost:8080/home.html")
-    })
-    .catch((error)=>{
-        location.assign("http://localhost:8080/home.html")
-    })
-}
-function work1()
-{
-    var ppp = localStorage.getItem("dn");
-    alert(ppp)
-    delete localStorage.dn;
-    postData("http://localhost:8080/auth/currentedit", {id:ppp})
-    .then(data=>{
-        
-        location.assign("http://localhost:8080/homed.html")
-    })
-    .catch((error)=>{
-        location.assign("http://localhost:8080/homed.html")
     })
 }
 function takemail()
@@ -156,7 +116,6 @@ function makeid(length)
 function refresh()
 {
     location.assign("http://localhost:8080/login.html");
-   //location.assign("./login.html")  
 }
 function passchange()
 {
@@ -166,3 +125,4 @@ function passchange()
        
     )
 }
+*/

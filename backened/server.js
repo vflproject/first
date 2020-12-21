@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded(
 )); 
 app.use(cors());
 app.use(express.static('../frontend1/authentication'));
+app.use(express.static('../frontend1/public'));
 app.use(express.static('../frontend1/district'));
 app.use(express.static('../frontend1/taluk'));
 var auth = require('./queries/auth');

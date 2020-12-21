@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <link rel="stylesheet" href="css/homed.css">
+       <link rel="stylesheet" href="./homed.css">
     </head>
     <body>
-        <nav>
-            <p> username: <strong><i id="username">username</i></strong>
-            <button id="login" onclick="login()">LOGIN</button>  <button id="logout" onclick="logout()">LOGOUT</button></p>
-        </nav>
-        <div id="closeopen">
         <h1>District Home page <span id="DHuser"></span></h1>
         <button onclick="viewtalukas()">VIEW TALUKAS LIST</button>
         <button onclick="distcrops()">VIEW OUR DISTRICT CROP</button>
-        <!-- in id ff talukaname will be display  and crop views also here only-->
         <div id="ff">
      
         </div>
-        <!-- in id detail each taluka detail will be display -->
         <div id="detail">
             
         </div>
@@ -31,19 +24,13 @@
         </div>
         <div id="editcrop">
             
-            <form id="edd" onsubmit=cropedit()>
+            <form onsubmit=cropedit()>
                 <input type="text" id="cropid1" placeholder="crop id is fixed"  disabled>
                 <input type="text" id="cropname1" value="" />
                 <input type="number" id="cropcost1" />
                 <input type="submit"/>
-                <button onclick="closeedit()">X</button>
             </form>
         </div>
-        </div>
-      
         <script src="homed.js"></script>
-        <script>
-            
-        </script>
     </body>
 </html>
