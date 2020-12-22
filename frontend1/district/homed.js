@@ -52,10 +52,21 @@ fetch("http://localhost:8080/dist/distcrop")
      })
      .then(data=>{
          console.log(data.length)
+         var smalllist = [];
          for(var j=0;j<data.length;j++)
          {
-             var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].cropcost} <button onclick='EDIT(${data[j].cropid}, "${data[j].cropname}", ${data[j].cropcost})'>edit</button> <button onclick="deleteone(${data[j].cropid})">delete</button> `
-             cropslist.push(temp);
+             var temp =  `${data[j].cropid}` 
+             smalllist.push(temp); 
+             var temp = `${data[j].cropname}`  
+             smalllist.push(temp);
+             var temp =  `${data[j].cropcost}` 
+             smalllist.push(temp);
+             var temp = `<button onclick='EDIT(${data[j].cropid}, "${data[j].cropname}", ${data[j].cropcost})'>edit</button>` 
+             smalllist.push(temp);
+             var temp = `<button onclick="deleteone(${data[j].cropid})">delete</button>`
+             smalllist.push(temp);
+             cropslist.push(smalllist);
+             smalllist = [];
          }
 })
 }
@@ -69,10 +80,21 @@ function hh()
     postData("http://localhost:8080/dist/talukdetail", {talukid:id1})
     .then(data => {
         sublist = [];
+        var smalllist = [];
         for(var j=0;j<data.length;j++)
         {
-            var temp = `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}kg   ${data[j].requirement}kg`
-            sublist.push(temp);
+            //var temp = `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}kg   ${data[j].requirement}kg`
+            //sublist.push(temp);
+            var temp = `${data[j].cropid}`;
+            smalllist.push(temp);
+            var temp = `${data[j].cropname}`;
+            smalllist.push(temp);
+            var temp = `${data[j].produce}`;
+            smalllist.push(temp);
+            var temp = `${data[j].requirement}`;
+            smalllist.push(temp);
+            sublist.push(smalllist);
+            smalllist = [];
         }
         detailview();
     })
@@ -107,10 +129,20 @@ function detailview()
   {
          document.getElementById("detail").innerHTML="";
          var ppp = "";
+         var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>produce</th><th>requirement</th></tr>";
+         ppp = ppp+ namelist;
          for(var i=0;i<sublist.length;i++)
          {
-             ppp += "<li>" +sublist[i]+  "</li>";
+            //  ppp += "<li>" +sublist[i]+  "</li>";
+            var namelist = "<tr> <td>"+ 
+                sublist[i][0] +"</td><td>"+ 
+                sublist[i][1] +"</td><td>"+
+                sublist[i][2] +"</td><td>"+ 
+                sublist[i][3] +"</td></tr>";
+            ppp = ppp+namelist;    
          }
+         var namelist = "</table>";
+         ppp = ppp+namelist;
          finalview[b++] = ppp;
   }
 
@@ -149,13 +181,28 @@ function viewtalukas(){
 function distcrops(){
     document.getElementById("ff").innerHTML = "";
     document.getElementById("detail").innerHTML = "";
+    var pp="";
+    var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>cropcost</th></tr>";
+    pp += namelist;
+    //document.getElementById("ff").innerHTML += namelist;
     for(var i=0;i<cropslist.length;i++)
     {
-        var namelist = "<li>" +cropslist[i]+  "</li>";
-        document.getElementById("ff").innerHTML += namelist;
+        //var namelist = "<li>" +cropslist[i]+  "</li>";
+        //document.getElementById("ff").innerHTML += namelist;
+        var namelist = "<tr> <td>"+ 
+        cropslist[i][0] +"</td><td>"+ 
+        cropslist[i][1] +"</td><td>"+
+        cropslist[i][2] +"</td><td>"+ 
+        cropslist[i][3] +"</td><td>"+ 
+        cropslist[i][4] +"</td></tr>";
+        pp+=namelist;
+        //document.getElementById("ff").innerHTML += namelist;
     }
-    var temp = `<button onclick="cropinsertform()">ADD NEW</button>`;
-    document.getElementById("ff").innerHTML += temp;
+    var namelist = "</table>";
+    pp+=namelist;
+    document.getElementById("ff").innerHTML = pp;
+    //var temp = `<button onclick="cropinsertform()">ADD NEW</button>`;
+    //document.getElementById("ff").innerHTML += temp;
     var ff = document.getElementById("ff");
     ff.style.display = "block";
 }

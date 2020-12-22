@@ -117,6 +117,21 @@ mysql> create procedure addbalance(name varchar(20), aadhar int, quantitude int)
         }
     })
 });
+router.post('/cropuse/:id1/:id2',(req,res)=>{
+    var talukno = req.params.id1;
+    var cropname = req.params.id2;
+    connection.query("insert into crop (talukno,cropno) values ("+talukno+", (select cropid from dist1 where cropname='"+cropname+"'));",
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(result);
+        }
+    })
+})
 router.get('/payment/:id1/:id2',(req,res)=>{
     var aadharno = req.params.id1;
     var payu = req.params.id2;

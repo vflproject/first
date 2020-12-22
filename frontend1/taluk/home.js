@@ -65,11 +65,22 @@ function viewcrops()
         return response.json();
     })
     .then(data => {
+        var smalllist = [];
         list = [];
         for(var j=0;j<data.length;j++)
         {
-            var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
-            list.push(temp);
+            //var temp =  `${data[j].cropid}   ${data[j].cropname}   ${data[j].produce}  ${data[j].requirement}`
+            //list.push(temp);
+             var temp = `${data[j].cropid}`;
+             smalllist.push(temp);
+             var temp = `${data[j].cropname}`;
+             smalllist.push(temp);
+             var temp = `${data[j].produce}`;
+             smalllist.push(temp);
+             var temp = `${data[j].requirement}`;
+             smalllist.push(temp);
+             list.push(smalllist);
+             smalllist = [];
         }
         viewcrops1();
     })
@@ -80,9 +91,15 @@ function viewcrops()
 function viewcrops1()
 {
            document.getElementById("view").innerHTML = "";
+           var namelist = "<tr> <th>cropid</th><th>cropname</th><th>produce</th><th>requirement</th></tr>";
+           document.getElementById("view").innerHTML += namelist;
             for(var i=0;i<list.length;i++)
             {
-                var namelist = "<li>" +list[i]+  "</li>";
+                var namelist = "<tr> <td>"+ 
+                list[i][0] +"</td><td>"+ 
+                list[i][1] +"</td><td>"+
+                list[i][2] +"</td><td>"+ 
+                list[i][3] +"</td></tr>";
                 document.getElementById("view").innerHTML += namelist;
             }
 }
@@ -150,6 +167,7 @@ function addbalance(ano)
 function addbalancevalue()
 {
     var crp = document.getElementById("crp").value;
+    localStorage.setItem("cpname",crp);
     var ano = document.getElementById("aa").value;
     var quant = document.getElementById("qq").value;
     fetch(`http://localhost:8080/taluk/addbalancetofarmer/${ano}/${crp}/${quant}`)
@@ -163,6 +181,19 @@ function addbalancevalue()
      .catch((error)=>{
         console.log(error)
      })
+    croptouse(); 
+}
+function croptouse()
+{
+     var tno = tid;
+     var cname = localStorage.getItem("cpname");
+     postData(`http://localhost:8080/taluk/cropuse/${tno}/${cname}`,)
+    .then(data => {
+        alert("success");
+    })
+    .catch((error)=>{
+       alert("done");
+    })
 }
 function payment(ano)
 {
