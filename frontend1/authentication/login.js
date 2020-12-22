@@ -84,7 +84,7 @@ function logindatastaluk(){
 function work()
 {
     var ppp = localStorage.getItem("tn");
-    delete localStorage.tn;
+    //delete localStorage.tn;
     postData("http://localhost:8080/auth/currentedit", {id:ppp})
     .then(data=>{
         

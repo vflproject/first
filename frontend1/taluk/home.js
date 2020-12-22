@@ -8,17 +8,11 @@ var eachlist = [];
 var megaeachsublist = [];
 var crops = [];
 
-fetch(`http://localhost:8080/auth/getuser`)
-.then(response => {
-    return response.json();
-})
-.then(data=>{
-     tid = data[0].number
-})
-.catch((error)=>{
-   res.send(error)
-})
-fetch(`http://localhost:8080/auth/getuserdetail`)
+tid = localStorage.getItem("tn");
+ccc();
+function ccc()
+{ 
+fetch(`http://localhost:8080/auth/getuserdetail/${tid}`)
 .then(response => {
     return response.json();
 })
@@ -48,6 +42,7 @@ fetch(`http://localhost:8080/dist/distcrop/onlycrop`)
      {
          document.getElementById("login").style.display = "block";
      }
+}
 //Global post data function
 async function postData(url = '', data = {})
   {
@@ -177,9 +172,11 @@ function payment(ano)
          return response;
      })
      .then(data => {
-        console.log("success")
-        document.getElementById("second").innerHTML=""
-        farmerdetail(ano);
+        // console.log("success")
+        // document.getElementById("second").innerHTML=""
+         document.location.reload();
+         //farmerdetail(localStorage.getItem("idvalue"));
+        // location.assign(`http://localhost:8080/taluk/viewfarmers/${tid}/${ano}`)
      })
      .catch((error)=>{
         console.log(error)
@@ -208,6 +205,7 @@ function editing()
 }
 function farmerdetail(id)
 {
+    localStorage.setItem("idvalue",id);
      document.getElementById("firstdisplay").style.display = "none";
      document.getElementById("second").style.display = "block"
      fetch(`http://localhost:8080/taluk/viewfarmers/${tid}/${id}`)
@@ -248,19 +246,8 @@ function farmerdetail(id)
 }
 function logout()
 {
-    postData("http://localhost:8080/auth/currentedit", {id:0})
-    .then(data=>{
-         document.getElementById("openclose").style.display = "none";
-         document.getElementById("login").style.display = "block";
-         document.getElementById("logout").style.display = "none";
-    })
-    .catch((error)=>{
-        // document.getElementById("openclose").style.display = "none";
-        //  document.getElementById("login").style.display = "block";
-        //  document.getElementById("logout").style.display = "none";
-        location.assign("http://localhost:8080/login.html");
-
-    })
+    delete localStorage.tn;
+    location.assign("http://localhost:8080/login.html");
 }
 function login()
 {

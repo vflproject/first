@@ -135,8 +135,9 @@ router.get('/getuser',(req,res)=>{
       }
    })
 })
-router.get('/getuserdetail',(req,res)=>{
-   connection.query("select username,talukname from taluka,auth where talukno=talukid and talukid=(select number from currentuser)",
+router.get('/getuserdetail/:id',(req,res)=>{
+   var vv = req.params.id;
+   connection.query("select username,talukname from taluka,auth where talukno=talukid and talukid="+vv+"",
    (err,result)=>{
       if(err)
       {
