@@ -1,0 +1,18 @@
+body{
+    background-color: black;
+}
+.c1{
+    width: 40%;
+}
+.c2{
+    background-color: rgb(34, 32, 32);
+    font-size: 2px;
+    width: 50%;
+    margin-top: 100em;
+    padding: 2em;
+    color: blanchedalmond;
+}
+.c2:hover{
+    background-color: blanchedalmond;
+    color: black;
+}

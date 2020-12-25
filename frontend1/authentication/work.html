@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,9 +9,49 @@
 </head>
 <body>
     <h2>WELCOME TO FARMERS SAVAGE TALUK OFFICE</h2>
-    <p id="vc"> </p>
+
     <button  onclick="work()">GO FORWARD</button>
     <br/>
     <button id="login" onclick="refresh()">LOGIN</button>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="login.js"></script>
+<style>
+    body{
+    background-color: black;
+}
+.c1{
+    width: 40%;
+}
+.c2{
+    background-color: rgb(34, 32, 32);
+    font-size: 2px;
+    width: 50%;
+    margin-top: 100em;
+    padding: 2em;
+    color: blanchedalmond;
+}
+.c2:hover{
+    background-color: blanchedalmond;
+    color: black;
+}
+</style>
+</head>
+<body>
+    <div class="container c2">
+        <h2>Do you want to continue?</h2>
+       <div class="container c1">
+        <button onclick="work()" type="button" class="btn btn-success">YES</button>
+        <button id="login" onclick="refresh()" type="button" class="btn btn-outline-danger">NO</button>
+       </div>
+      </div>
 </body>
 </html>

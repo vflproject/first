@@ -5,11 +5,16 @@
           #login{
               display: none;
           }
+          #talukpage{
+            display: none;
+          }
       </style>
     
        <link rel="stylesheet" href="css/home.css">
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body id="talukpage">
         <nav>
            <p> username: <strong><i id="username">username</i></strong>   Talukname : <strong> <i id="talukname">talukname</i></strong>
            <button id="login" onclick="login()">LOGIN</button>  <button id="logout" onclick="logout()">LOGOUT</button></p>
@@ -19,6 +24,9 @@
         <h1>welcome taluk</h1>
         <button onclick="viewcrops()">View our taluk crops list</button>
         <button onclick="viewfarmers()">view our farmers list</button>
+        <br/>
+        <br/>
+        <br/>
         <table id="view">
          
         </table>
@@ -42,7 +50,30 @@
            <input type="submit"/>
        </form>
       </div>
-      <button onclick="gg()">ggg</button>
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form onsubmit=addfarmer()>
+           <label>Aadhar number</label>   
+           <input type="number" placeholder="aadhar number" id="aadh" required>
+          </br>
+          <br/>
+          <label>Farmer name</label>
+           <input type="text" placeholder="farmer name" id="faname" required>
+         </br>
+         <br/>
+           <label>Account number</label>
+           <input type="number" placeholder="account number" id="acnumber" required>
+           <br>
+           <br/>
+           <input type="submit">
+          </form>
+        </div>
+      
+      </div>
+      
      <script src="home.js">
         
      </script>

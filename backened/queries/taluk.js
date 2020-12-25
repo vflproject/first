@@ -93,6 +93,25 @@ router.post('/editfarmer/:tid/:fid',(req,res)=>{
         }
     })
 });
+//add farmer
+router.post('/addfarmer/:tid/:fid',(req,res)=>{
+    var talukid = req.params.tid;
+    var aadharno  = req.params.fid;
+    var name = req.body.farmername;
+    var accno = req.body.accountno;
+
+    connection.query("insert into farmer (talukno,aadharno,farmername,accountno) values("+talukid+","+aadharno+",'"+name+"',"+accno+")", 
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(result);
+        }
+    })
+});
 //add balance
 router.get('/addbalancetofarmer/:id1/:id2/:id3',(req,res)=>{
     var cropname = req.params.id2;
@@ -154,5 +173,17 @@ router.get('/payment/:id1/:id2',(req,res)=>{
         }
     });
 })
-
+router.get('/payment/:id1',(req,res)=>{
+    var aadharno = req.params.id1;
+    connection.query("select balance from farmer where aadharno=14",
+    (err,result)=>{
+        if(result)
+        {
+         res.send(result);
+        }
+        else{
+            res.send(err);
+        }
+    });
+})
 module.exports = router;

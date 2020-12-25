@@ -7,22 +7,24 @@ var b=0;
 var did;
 //here all taluk list fetching
 
-fetch(`http://localhost:8080/auth/getuser`)
-.then(response => {
-    return response.json();
-})
-.then(data=>{
-     var vv = data[0].number;
-     localStorage.setItem("tt",vv);
-     cchn();
-})
-
+// fetch(`http://localhost:8080/auth/getuser`)
+// .then(response => {
+//     return response.json();
+// })
+// .then(data=>{
+//      var vv = data[0].number;
+//      localStorage.setItem("tt",vv);
+//      cchn();
+// })
+did = localStorage.getItem("dn");
+cchn();
 function cchn()
 {
     did = localStorage.getItem("tt");
     alert(did);
     if(did==-1)
 {
+   document.getElementById("districtpage").style.display = "block"; 
 fetch("http://localhost:8080/auth/getbydist")
    .then(response=>{
        return response.json();
@@ -198,6 +200,8 @@ function distcrops(){
         pp+=namelist;
         //document.getElementById("ff").innerHTML += namelist;
     }
+    var namelist = "<tr><th><button onclick='cropinsertform()'>ADD NEW</button></th></tr>";
+    pp+=namelist;
     var namelist = "</table>";
     pp+=namelist;
     document.getElementById("ff").innerHTML = pp;
