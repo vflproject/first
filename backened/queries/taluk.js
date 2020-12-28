@@ -136,6 +136,7 @@ mysql> create procedure addbalance(name varchar(20), aadhar int, quantitude int)
         }
     })
 });
+// once new crop used in add balance then we add in crop table
 router.post('/cropuse/:id1/:id2',(req,res)=>{
     var talukno = req.params.id1;
     var cropname = req.params.id2;
@@ -151,6 +152,7 @@ router.post('/cropuse/:id1/:id2',(req,res)=>{
         }
     })
 })
+//payment
 router.get('/payment/:id1/:id2',(req,res)=>{
     var aadharno = req.params.id1;
     var payu = req.params.id2;
@@ -173,9 +175,10 @@ router.get('/payment/:id1/:id2',(req,res)=>{
         }
     });
 })
+//balance viewer
 router.get('/payment/:id1',(req,res)=>{
     var aadharno = req.params.id1;
-    connection.query("select balance from farmer where aadharno=14",
+    connection.query("select balance from farmer where aadharno="+aadharno+"",
     (err,result)=>{
         if(result)
         {

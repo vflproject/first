@@ -21,7 +21,6 @@ cchn();
 function cchn()
 {
     did = localStorage.getItem("tt");
-    alert(did);
     if(did==-1)
 {
    document.getElementById("districtpage").style.display = "block"; 
@@ -95,6 +94,8 @@ function hh()
             smalllist.push(temp);
             var temp = `${data[j].requirement}`;
             smalllist.push(temp);
+            var temp=`${data[j].talukno}`;
+            smalllist.push(temp);
             sublist.push(smalllist);
             smalllist = [];
         }
@@ -131,7 +132,7 @@ function detailview()
   {
          document.getElementById("detail").innerHTML="";
          var ppp = "";
-         var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>produce</th><th>requirement</th></tr>";
+         var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>produce(kg)</th><th>requirement(kg)</th></tr>";
          ppp = ppp+ namelist;
          for(var i=0;i<sublist.length;i++)
          {
@@ -140,14 +141,30 @@ function detailview()
                 sublist[i][0] +"</td><td>"+ 
                 sublist[i][1] +"</td><td>"+
                 sublist[i][2] +"</td><td>"+ 
-                sublist[i][3] +"</td></tr>";
+                sublist[i][3] +`</td><td><button onclick='EDITONE(${sublist[i][4]}, ${sublist[i][0]})'>EDIT (prduction and requirements)</button></td></tr>`
             ppp = ppp+namelist;    
          }
          var namelist = "</table>";
          ppp = ppp+namelist;
          finalview[b++] = ppp;
   }
-
+ function EDITONE(idt,idc)
+ {
+    localStorage.setItem("t",idt);
+    localStorage.setItem("c",idc) 
+    document.getElementById("prre").style.display = "block"; 
+ }
+ function goeditprre()
+ {
+    var idt = localStorage.getItem("t");
+    var idc = localStorage.getItem("c"); 
+    var pro = document.getElementById("pr").value;
+    var requ = document.getElementById("re").value;
+    fetch(`http://localhost:8080/dist/edit/${idt}/${idc}/${pro}/${requ}`)
+    .then(data=>{
+        alert("changes");
+    })
+ }
 
 //taluk view in html page function
 function viewtalukas(){

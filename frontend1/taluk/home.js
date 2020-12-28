@@ -103,7 +103,7 @@ function viewcrops()
 function viewcrops1()
 {
            document.getElementById("view").innerHTML = "";
-           var namelist = "<tr> <th>cropid</th><th>cropname</th><th>produce</th><th>requirement</th></tr>";
+           var namelist = "<tr> <th>cropid</th><th>cropname</th><th>production(kg)</th><th>requirements(kg)</th></tr>";
            document.getElementById("view").innerHTML += namelist;
             for(var i=0;i<list.length;i++)
             {

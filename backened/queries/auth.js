@@ -4,7 +4,7 @@ connection.connect();
 var express = require('express');
 const { UV_FS_O_FILEMAP } = require('constants');
 var router = express.Router();
-
+// login district
 router.post('/login',(req,res)=>{
     var username = req.body.username;
     var password = req.body.password;
@@ -24,6 +24,7 @@ router.post('/login',(req,res)=>{
         }
     });
 });
+//select mail and confirm msg 
 router.post("/loginmail", (req,res)=>{
    var idd = req.body.idd;
    var nn = "suhas"
@@ -55,6 +56,7 @@ router.post("/loginmail", (req,res)=>{
       })
    }
 })
+//login taluk
 router.post('/logint',(req,res)=>{
    var username = req.body.username;
    var password = req.body.password;
@@ -79,6 +81,7 @@ router.post('/logint',(req,res)=>{
        }
    });
 });
+//edit password
 router.post('/loginedit',(req,res)=>{
       var password = req.body.password;
       var tno1 = req.body.tno;
@@ -110,6 +113,7 @@ router.post('/loginedit',(req,res)=>{
          })
       }
 })
+//dont read no use
 router.post('/currentedit',(req,res)=>{
    var curid = req.body.id;
    connection.query("update currentuser set number="+curid+"",
@@ -123,6 +127,7 @@ router.post('/currentedit',(req,res)=>{
       }
    })
 })
+//NO USE THIS COMMAND PLEAse dont read
 router.get('/getuser',(req,res)=>{
    connection.query("select number from currentuser",
    (err,result)=>{
@@ -135,6 +140,7 @@ router.get('/getuser',(req,res)=>{
       }
    })
 })
+// get user details to navbar display
 router.get('/getuserdetail/:id',(req,res)=>{
    var vv = req.params.id;
    connection.query("select username,talukname from taluka,auth where talukno=talukid and talukid="+vv+"",
@@ -148,6 +154,7 @@ router.get('/getuserdetail/:id',(req,res)=>{
       }
    })
 })
+//username extraction 
 router.get('/getbydist',(req,res)=>{
    connection.query("select username from authd",
    (err,result)=>{
