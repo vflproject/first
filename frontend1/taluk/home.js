@@ -198,9 +198,11 @@ function addbalancevalue()
      .catch((error)=>{
         console.log(error)
      })
-    croptouse(); 
+   
+    sms(ano,quant,crp);
 }
-function croptouse()
+
+function croptouse(ano)
 {
      var tno = tid;
      var cname = localStorage.getItem("cpname");
@@ -211,6 +213,10 @@ function croptouse()
     .catch((error)=>{
        alert("done");
     })
+}
+function msg(ano,quant)
+{
+    alert(quant);
 }
 function payment(ano)
 {
@@ -278,7 +284,7 @@ function editing()
 function farmerdetail(id)
 {
     localStorage.setItem("idvalue",id);
-     document.getElementById("firstdisplay").style.display = "none";
+    /* document.getElementById("firstdisplay").style.display = "none";
      document.getElementById("second").style.display = "block"
      fetch(`http://localhost:8080/taluk/viewfarmers/${tid}/${id}`)
      .then(res=>{
@@ -315,6 +321,51 @@ function farmerdetail(id)
              var namelist = `<button onclick="editfarmer(${data[j].aadharno},'${data[j].farmername}',${data[j].accountno})">EDIT</button>`;
              document.getElementById("second").innerHTML += namelist;
          }
+     })*/
+     location.assign("http://localhost:8080/homeview.html");
+}
+function cd()
+{
+    document.getElementById("second").innerHTML = "";
+    document.getElementById("cd").style.display = "none";
+    var id = localStorage.getItem("idvalue");
+    document.getElementById("openclose").style.display = "block";
+     document.getElementById("second").style.display = "block"
+     fetch(`http://localhost:8080/taluk/viewfarmers/${tid}/${id}`)
+     .then(res=>{
+         return res.json();
+     })
+     .then(data=>{
+        for(var j=0;j<data.length;j++)
+         {
+            var temp =  `${data[j].aadharno}`   
+            eachlist.push(temp);
+            var temp = `${data[j].farmername}` 
+            eachlist.push(temp);  
+            var temp = `${data[j].accountno}`   
+            eachlist.push(temp);
+            var temp = `${data[j].balance}`  
+            eachlist.push(temp);
+            var temp = `${data[j].paid}`
+            eachlist.push(temp);
+            var namelist = "<tr> <th>aadharno</th><th>farmername</th><th>account no</th><th>balance</th><th>paid</th> </tr>";
+            document.getElementById("second").innerHTML += namelist;
+            var namelist = "<tr> <td>"+ 
+            eachlist[0] +"</td><td>"+ 
+            eachlist[1] +"</td><td>"+
+            eachlist[2] +"</td><td>"+ 
+            eachlist[3] +"</td><td>"+ 
+            eachlist[4] +"</td></tr>";
+        document.getElementById("second").innerHTML += namelist;
+             var namelist = "<br/><br/>";
+             document.getElementById("second").innerHTML += namelist;
+             var namelist = `<button class="btn-primary" onclick="addbalance(${data[j].aadharno})">add balance</button>   `;
+             document.getElementById("second").innerHTML += namelist;
+             var namelist = `<button class="btn-warning" onclick="payment(${data[j].aadharno})">PAY</button>   `;
+             document.getElementById("second").innerHTML += namelist;
+             var namelist = `<button class="btn-info" onclick="editfarmer(${data[j].aadharno},'${data[j].farmername}',${data[j].accountno})">EDIT</button>`;
+             document.getElementById("second").innerHTML += namelist;
+         }
      })
 }
 function logout()
@@ -339,6 +390,19 @@ function addfarmer()
         console.log(error);
     })
 }
+//getnumber confirm
+function sms(ano,quant,crp)
+{
+    fetch(`http://localhost:8080/taluk/sms/${crp}/${quant}/${ano}`)
+    .then(res =>{
+       alert(res);
+       croptouse(ano);
+    })
+    .catch((error)=>{
+       alert("k");
+       croptouse(ano);
+    })
+}
 // When the user clicks the button, open the modal 
 function hh() {
   modal.style.display = "block";
@@ -355,3 +419,5 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+

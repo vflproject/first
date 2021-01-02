@@ -18,12 +18,14 @@
         <nav>
            <p> username: <strong><i id="username">username</i></strong>   Talukname : <strong> <i id="talukname">talukname</i></strong>
            <button id="login" onclick="login()">LOGIN</button>  <button id="logout" onclick="logout()">LOGOUT</button></p>
+
+           <button class="btn-info" onclick="viewcrops()">View our taluk crops list</button>
+        <button class="btn-info" onclick="viewfarmers()">view our farmers list</button>
+        
         </nav>
         <div id="openclose">
         <div id="firstdisplay">
         <h1>welcome taluk</h1>
-        <button onclick="viewcrops()">View our taluk crops list</button>
-        <button onclick="viewfarmers()">view our farmers list</button>
         <br/>
         <br/>
         <br/>
@@ -31,24 +33,6 @@
          
         </table>
        </div>
-       <table id="second">
-
-       </table>
-       <form onsubmit=addbalancevalue() id="addbalance">
-           <input type="number" id="aa" value="" disabled />
-           <label for="crp">crop select</label>
-            <select id="crp">
-                
-            </select>
-            <input type="number" id="qq" placeholder="quantity"/>
-            <input type="submit"/>
-       </form>
-       <form onsubmit=editing() id="edit">
-           <input type="number" value="" id="ad" disabled /> 
-           <input type="text" value="" id="fn"/>
-           <input type="number" value="" id="ac"/>
-           <input type="submit"/>
-       </form>
       </div>
       <div id="myModal" class="modal">
 
@@ -71,7 +55,6 @@
            <input type="submit">
           </form>
         </div>
-      
       </div>
       
      <script src="home.js">

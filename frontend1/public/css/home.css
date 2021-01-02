@@ -1,10 +1,11 @@
-
+#talukpage{
+  background-color: #000;
+  color: white;
+}
 #firstdisplay{
     display: block;
 }
-#second{
-    display: none;
-}
+
 #addbalance{
     display: none;
 }

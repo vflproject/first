@@ -93,6 +93,23 @@ router.post('/editfarmer/:tid/:fid',(req,res)=>{
         }
     })
 });
+
+//get number
+router.get('/getnumber/:id1',(req,res)=>{
+    var aadharno = req.params.id1;
+    connection.query("select mobnum from farmer where aadharno="+aadharno+"", 
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+           res.send(result);
+        }
+    })
+});
+
 //add farmer
 router.post('/addfarmer/:tid/:fid',(req,res)=>{
     var talukid = req.params.tid;
@@ -187,6 +204,48 @@ router.get('/payment/:id1',(req,res)=>{
         else{
             res.send(err);
         }
+    });
+})
+router.get('/sms/:cname/:quant/:ano',(req,res)=>{
+    var ano = req.params.ano;
+    var cname = req.params.cname;
+    var quant  = req.params.quant;
+    connection.query("select number from currentuser",
+    (err,result)=>{
+    if(result[0].number){
+     connection.query("select balance,mobnum from farmer where aadharno="+ano+" ",
+     (err,result)=>{
+         if(result)
+         {
+           var b = result[0].balance;
+           var m = result[0].mobnum;
+           m = '+'+m;
+           const accountSid = 'ACc398478869247bf9fbd322386ab53277';
+           const authToken = 'afabaa2704700dee6508a25276326cd2';
+           const client = require('twilio')(accountSid, authToken);
+
+          const notificationOpts = {
+                toBinding: JSON.stringify({
+                binding_type: 'sms',
+                address: '+918660026464',
+           }),
+          body: "TODAY CROP DETAILS:  crop name : "+cname+"   crop quantity : "+quant+
+          "     TOTAL BALANCE(remain to pay you) :  "+b+" please verify and any queries contact office director",
+          };
+
+         client.notify
+         .services('ISa31238e26a6c9be763ad91037af4204d')
+         .notifications.create(notificationOpts)
+         .then(notification => res.send(notification.sid))
+         .catch(error => console.log(error));
+         }
+         else{
+           res.send(err);
+         }
+     }) }
+     else{
+
+     }
     });
 })
 module.exports = router;
