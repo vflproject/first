@@ -85,28 +85,14 @@ function work()
 {
     var ppp = localStorage.getItem("tn");
     //delete localStorage.tn;
-    postData("http://localhost:8080/auth/currentedit", {id:ppp})
-    .then(data=>{
-        
-        location.assign("http://localhost:8080/home.html")
-    })
-    .catch((error)=>{
-        location.assign("http://localhost:8080/home.html")
-    })
+    location.assign("http://localhost:8080/home.html")
 }
 function work1()
 {
     var ppp = localStorage.getItem("dn");
     alert(ppp)
     delete localStorage.dn;
-    postData("http://localhost:8080/auth/currentedit", {id:ppp})
-    .then(data=>{
-        
-        location.assign("http://localhost:8080/homed.html")
-    })
-    .catch((error)=>{
-        location.assign("http://localhost:8080/homed.html")
-    })
+    location.assign("http://localhost:8080/homed.html")
 }
 function takemail()
 {

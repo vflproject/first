@@ -202,11 +202,9 @@ function addbalancevalue()
     sms(ano,quant,crp);
 }
 
-function croptouse(ano)
+function croptouse(crp)
 {
-     var tno = tid;
-     var cname = localStorage.getItem("cpname");
-     postData(`http://localhost:8080/taluk/cropuse/${tno}/${cname}`,)
+     postData(`http://localhost:8080/taluk/cropuse/${tid}/${crp}`,)
     .then(data => {
         alert("success");
     })
@@ -395,13 +393,12 @@ function sms(ano,quant,crp)
 {
     fetch(`http://localhost:8080/taluk/sms/${crp}/${quant}/${ano}`)
     .then(res =>{
-       alert(res);
-       croptouse(ano);
+       alert("on way success");
     })
     .catch((error)=>{
-       alert("k");
-       croptouse(ano);
+       alert("first way success");
     })
+    croptouse(crp);
 }
 // When the user clicks the button, open the modal 
 function hh() {

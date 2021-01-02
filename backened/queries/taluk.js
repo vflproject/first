@@ -244,7 +244,7 @@ router.get('/sms/:cname/:quant/:ano',(req,res)=>{
          }
      }) }
      else{
-
+          res.send(result);
      }
     });
 })
