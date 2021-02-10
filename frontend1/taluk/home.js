@@ -91,6 +91,8 @@ function viewcrops()
              smalllist.push(temp);
              var temp = `${data[j].requirement}`;
              smalllist.push(temp);
+             var temp=`<button class="btn btn-danger" onclick="deletecrop(${data[j].cropid},${tid})">DELETE</button>`
+             smalllist.push(temp)
              list.push(smalllist);
              smalllist = [];
         }
@@ -111,9 +113,17 @@ function viewcrops1()
                 list[i][0] +"</td><td>"+ 
                 list[i][1] +"</td><td>"+
                 list[i][2] +"</td><td>"+ 
-                list[i][3] +"</td></tr>";
+                list[i][3] +"</td><td>"+
+                list[i][4] +"</td></tr>";
                 document.getElementById("view").innerHTML += namelist;
             }
+}
+function deletecrop(cid,tid)
+{
+    fetch(`http://localhost:8080/taluk/viewcrops/deletecrop/${cid}/${tid}`)
+    .then(response => {
+        document.location.reload();
+    })
 }
 function viewfarmers()
 {

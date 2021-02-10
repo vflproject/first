@@ -39,6 +39,21 @@ router.post('/editcrops/:tid/:cid',(req,res)=>{
     })
 });
 
+router.get('/viewcrops/deletecrop/:cid/:tid',(req,res)=>{
+    var talukid=req.params.tid;
+    var cropid=req.params.cid;
+    connection.query("delete from crop where talukno="+talukid+" and cropno="+cropid+"",
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else{
+        res.send("successfully deleted");
+        }
+    })
+});
+
 //view our taluk farmers
 router.get('/viewfarmers/:id',(req,res)=>{
     var talukid = req.params.id;
@@ -219,16 +234,17 @@ router.get('/sms/:cname/:quant/:ano',(req,res)=>{
          {
            var b = result[0].balance;
            var m = result[0].mobnum;
-           m = '+'+m;
+           m = '+91'+m;
            const accountSid = 'ACc398478869247bf9fbd322386ab53277';
-           const authToken = 'afabaa2704700dee6508a25276326cd2';
+           //const authToken = 'afabaa2704700dee6508a25276326cd2';
+           const authToken = '3c85a44f1666ac3ad28eadbef2569fdb';
            const client = require('twilio')(accountSid, authToken);
 
           const notificationOpts = {
                 toBinding: JSON.stringify({
                 binding_type: 'sms',
-                address: '+918660026464',
-           }),
+                address: m,
+           }),                                                          
           body: "TODAY CROP DETAILS:  crop name : "+cname+"   crop quantity : "+quant+
           "     TOTAL BALANCE(remain to pay you) :  "+b+" please verify and any queries contact office director",
           };

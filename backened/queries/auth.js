@@ -27,10 +27,9 @@ router.post('/login',(req,res)=>{
 //select mail and confirm msg 
 router.post("/loginmail", (req,res)=>{
    var idd = req.body.idd;
-   var nn = "suhas"
    if(idd===0)
    {
-      connection.query("select email from authd where username like '"+nn+"'",
+      connection.query("select email from authd ",
       (err,result)=>{
            if(err)
            {

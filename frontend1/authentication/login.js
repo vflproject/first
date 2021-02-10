@@ -101,31 +101,33 @@ function takemail()
     postData("http://localhost:8080/auth/loginmail", {idd:idd})
     .then(data => {
         sendEmail(data[0].email)
+        //sendEmail();
     })
 }
 function sendEmail(mm) { 
-	otp=makeid(6);
-	Email.send({ 
-		Host: "smtp.gmail.com", 
-		Username: "vocalforlocalteam@gmail.com", 
-		Password: "vocal@local", 
-		To: mm, 
-		From: "vocalforlocalteam@gmail.com", 
-		Subject: "We are fron vocal for local team we give a permission to change your password ", 
-		Body: "Hi, Enter this OTP in block then it give a permission to change password  "+"OTP :   " + otp, 
-	}) 
-		.then(function (message) { 
-		var ot = prompt("Enter otp");	
-		if(ot===otp)
-        {
-         alert("success")
-         document.getElementById("pass").style.display="block";
-        }
-		else
-		{
-         alert("fail")
-        }
-		}); 
+    otp=makeid(6);
+    alert(mm);
+        Email.send({ 
+            Host: "smtp.gmail.com", 
+            Username: "vocalforlocalteam@gmail.com", 
+            Password: "vocal@local1", 
+            To: mm, 
+            From: "vocalforlocalteam@gmail.com", 
+            Subject: "We are fron vocal for local team we give a permission to change your password ", 
+            Body: "Hi, Enter this OTP in block then it give a permission to change password  "+"OTP :   "+otp , 
+        }) 
+            .then(function (message) { 
+            var ot = prompt("Enter otp");	
+            if(ot===otp)
+            {
+              alert("success")
+              document.getElementById("pass").style.display="block";
+            }
+		    else
+		    {
+              alert("fail")
+            }
+              });
 } 
     
 function makeid(length)
