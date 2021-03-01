@@ -91,7 +91,7 @@ function viewcrops()
              smalllist.push(temp);
              var temp = `${data[j].requirement}`;
              smalllist.push(temp);
-             var temp=`<button class="btn btn-danger" onclick="deletecrop(${data[j].cropid},${tid})">DELETE</button>`
+             var temp=`<button class="btn btn-danger" id="bt4" onclick="deletecrop(${data[j].cropid},${tid})">DELETE</button>`
              smalllist.push(temp)
              list.push(smalllist);
              smalllist = [];
@@ -105,7 +105,7 @@ function viewcrops()
 function viewcrops1()
 {
            document.getElementById("view").innerHTML = "";
-           var namelist = "<tr> <th>cropid</th><th>cropname</th><th>production(kg)</th><th>requirements(kg)</th></tr>";
+           var namelist = "<thead><tr> <th>cropid</th><th>cropname</th><th>production(kg)</th><th>requirements(kg)</th></tr></thead><tbody>";
            document.getElementById("view").innerHTML += namelist;
             for(var i=0;i<list.length;i++)
             {
@@ -117,6 +117,8 @@ function viewcrops1()
                 list[i][4] +"</td></tr>";
                 document.getElementById("view").innerHTML += namelist;
             }
+            var namelist = "</tbody>"
+            document.getElementById("view").innerHTML += namelist;
 }
 function deletecrop(cid,tid)
 {
@@ -197,7 +199,7 @@ function addbalancevalue()
     localStorage.setItem("cpname",crp);
     var ano = document.getElementById("aa").value;
     var quant = document.getElementById("qq").value;
-    fetch(`http://localhost:8080/taluk/addbalancetofarmer/${ano}/${crp}/${quant}`)
+    fetch(`http://localhost:8080/taluk/addbalancetofarmer/${ano}/${crp}/${quant}/${tid}`)
      .then(response => {
          return response.json();
      })
@@ -367,11 +369,11 @@ function cd()
         document.getElementById("second").innerHTML += namelist;
              var namelist = "<br/><br/>";
              document.getElementById("second").innerHTML += namelist;
-             var namelist = `<button class="btn-primary" onclick="addbalance(${data[j].aadharno})">add balance</button>   `;
+             var namelist = `<button class="btn btn-lg btn-primary" onclick="addbalance(${data[j].aadharno})">add balance</button>   `;
              document.getElementById("second").innerHTML += namelist;
-             var namelist = `<button class="btn-warning" onclick="payment(${data[j].aadharno})">PAY</button>   `;
+             var namelist = `<button class="btn btn-lg btn-primary" onclick="payment(${data[j].aadharno})">PAY</button>   `;
              document.getElementById("second").innerHTML += namelist;
-             var namelist = `<button class="btn-info" onclick="editfarmer(${data[j].aadharno},'${data[j].farmername}',${data[j].accountno})">EDIT</button>`;
+             var namelist = `<button class="btn btn-lg btn-primary" onclick="editfarmer(${data[j].aadharno},'${data[j].farmername}',${data[j].accountno})">EDIT</button>`;
              document.getElementById("second").innerHTML += namelist;
          }
      })

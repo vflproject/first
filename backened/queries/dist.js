@@ -3,6 +3,8 @@ var connection = con.getConnection();
 connection.connect();
 var express = require('express');
 var router = express.Router();
+
+
 //taluka views
 router.get('/viewtalukas',(req,res)=>{
     connection.query("select * from taluka", 
@@ -17,6 +19,24 @@ router.get('/viewtalukas',(req,res)=>{
         }
     })
 });
+
+
+//view taluks fund
+router.get('/viewtalukasfund',(req,res)=>{
+    connection.query("select talukname,talukfund from taluka",
+    (err,result)=>{
+        if(err)
+        {
+            res.send(err);
+        }
+        else
+        {
+            res.send(result);
+        }
+    })
+})
+
+
 //each taluk detail
 router.post('/talukdetail',(req,res)=>{
     var talukid = req.body.talukid;
@@ -32,6 +52,8 @@ router.post('/talukdetail',(req,res)=>{
          }
     })
 })
+
+
 //edit crop produce & requirements
 router.get('/edit/:idt/:idc/:pro/:requ', (req,res)=>{
     var idt = req.params.idt;
@@ -50,6 +72,8 @@ router.get('/edit/:idt/:idc/:pro/:requ', (req,res)=>{
         }
     })
 })
+
+
 //all crops list in district
 router.get("/distcrop",(req,res)=>{
     connection.query("select * from dist1",
@@ -64,9 +88,17 @@ router.get("/distcrop",(req,res)=>{
         }
     })
 })
+
+
 //It is to verify the cropname and comparing with given content
+//view 
+/*
+create view croplist AS
+    -> select cropname
+    -> from dist1;
+*/
 router.get("/distcrop/onlycrop",(req,res)=>{
-    connection.query("select cropname from dist1",
+    connection.query("select * from croplist",
      (err,result)=>{
         if(err)
         {
@@ -78,6 +110,8 @@ router.get("/distcrop/onlycrop",(req,res)=>{
         }
      })
 })
+
+
 //new crop add
 router.post("/distcrop/addnew",(req,res)=>{
     var cropid = req.body.cropid;
@@ -95,6 +129,8 @@ router.post("/distcrop/addnew",(req,res)=>{
         }
     })
 });
+
+
 //edit crop
 router.post("/distcrop/edit/:id",(req,res)=>{
     var cropid = req.params.id;
@@ -112,6 +148,8 @@ router.post("/distcrop/edit/:id",(req,res)=>{
         }
     })
 });
+
+
 //delete crop
 router.get("/distcrop/delete/:id",(req,res)=>{
     var cropid = req.params.id;
@@ -128,5 +166,21 @@ router.get("/distcrop/delete/:id",(req,res)=>{
     })
 })
 
+
+//add money to taluk fund
+router.get("/talukfundpay/:id/:v",(req,res)=>{
+    var id=req.params.id
+    var v = req.params.v
+    connection.query("update taluka set talukfund=talukfund-"+v+" where talukid="+id+"",
+    (err,result)=>{
+        if(err)
+        {
+            return res.send("error");
+        }
+        else{
+            return res.send("paid");
+        }
+    })
+})
 
 module.exports = router;

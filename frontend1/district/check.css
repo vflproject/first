@@ -1,0 +1,51 @@
+#ff{
+    display: none;
+}
+#addcrop{
+    display: none;
+}
+#editcrop{
+    display: none;
+}
+.collapsible{
+    background-color:white;
+    color: red;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border:none;
+    text-align: left;
+    outline: none;
+    font-size: 30px;
+}
+.content{
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+.active, .collapsible:hover{
+background-color: yellow;
+}
+table,td,th{
+ border : 1px solid black;
+}
+.navid{
+    color: #9d9d9d;
+    padding-top: 12px;
+}
+.navid:hover{
+    color: azure;
+}
+#img1{
+    height: 40px;
+    width: 40px;
+    padding-bottom: 10px;
+}
+body{
+    background-image: url(./agriculture.jpg);
+    background-size: cover;
+}
+.container .jumbotron, .container-fluid .jumbotron{
+    background-color: rgba(189, 192, 145, 0.705);
+}

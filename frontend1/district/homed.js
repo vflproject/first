@@ -3,6 +3,9 @@ var sublist = [];
 var cropslist = [];
 var idlist = [];
 var finalview = [];
+var fund=[];
+var fundname=[];
+var btnn=[];
 var b=0;
 var did;
 //here all taluk list fetching
@@ -31,12 +34,13 @@ fetch("http://localhost:8080/auth/getbydist")
    .then(data=>{
        document.getElementById("username").innerHTML = data[0].username;
    })
+
 fetch("http://localhost:8080/dist/viewtalukas")
      .then(response=>{
         return response.json()
      })
      .then(data=>{
-         console.log(data.length)
+       //  console.log(data.length)
          for(var j=0;j<data.length;j++)
          {
              var temp = `${data[j].talukname}`
@@ -44,8 +48,11 @@ fetch("http://localhost:8080/dist/viewtalukas")
              list.push(temp);
          }
          hh();
-}
-)
+})
+
+
+
+
 //here our districts all crops fetching
 fetch("http://localhost:8080/dist/distcrop")
      .then(response=>{
@@ -62,9 +69,9 @@ fetch("http://localhost:8080/dist/distcrop")
              smalllist.push(temp);
              var temp =  `${data[j].cropcost}` 
              smalllist.push(temp);
-             var temp = `<button onclick='EDIT(${data[j].cropid}, "${data[j].cropname}", ${data[j].cropcost})'>edit</button>` 
+             var temp = `<button class="btn btn-primary btn-lg" onclick='EDIT(${data[j].cropid}, "${data[j].cropname}", ${data[j].cropcost})'>edit</button>` 
              smalllist.push(temp);
-             var temp = `<button onclick="deleteone(${data[j].cropid})">delete</button>`
+             var temp = `<button class="btn btn-danger btn-lg" onclick="deleteone(${data[j].cropid})">delete</button>`
              smalllist.push(temp);
              cropslist.push(smalllist);
              smalllist = [];
@@ -108,8 +115,6 @@ function hh()
 }
 
 
-
-
 //Global post data function
 async function postData(url = '', data = {})
   {
@@ -132,7 +137,7 @@ function detailview()
   {
          document.getElementById("detail").innerHTML="";
          var ppp = "";
-         var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>produce(kg)</th><th>requirement(kg)</th></tr>";
+         var namelist = "<table class='table table-hover'><tr> <th>cropid</th><th>cropname</th><th>produce(kg)</th><th>requirement(kg)</th></tr>";
          ppp = ppp+ namelist;
          for(var i=0;i<sublist.length;i++)
          {
@@ -141,7 +146,7 @@ function detailview()
                 sublist[i][0] +"</td><td>"+ 
                 sublist[i][1] +"</td><td>"+
                 sublist[i][2] +"</td><td>"+ 
-                sublist[i][3] +`</td><td><button onclick='EDITONE(${sublist[i][4]}, ${sublist[i][0]})'>EDIT (prduction and requirements)</button></td></tr>`
+                sublist[i][3] +`</td><td><button class="btn btn-primary btn-lg" onclick='EDITONE(${sublist[i][4]}, ${sublist[i][0]})'>EDIT</button></td></tr>`
             ppp = ppp+namelist;    
          }
          var namelist = "</table>";
@@ -168,8 +173,13 @@ function detailview()
 
 //taluk view in html page function
 function viewtalukas(){
+    document.getElementById("bt").style.display="block";
+    document.getElementById("vt").style.display="none";
+    document.getElementById("dc").style.display="none";
+    document.getElementById("tf").style.display="none";
     document.getElementById("ff").innerHTML = "";
     document.getElementById("edd").style.display = "none";
+    document.getElementById("lists").style.display="block";
     for(var i=0;i<list.length;i++)
     {
         var namelist = "<div class='collapsible'>" +list[i]+  "</div>";
@@ -177,6 +187,7 @@ function viewtalukas(){
         var name1list = `<div class='content'>` + finalview[i] +  `</div>`;
         document.getElementById("ff").innerHTML += name1list;
     }
+    
     var ff = document.getElementById("ff");
     ff.style.display = "block";
     var coll = document.getElementsByClassName("collapsible");
@@ -184,31 +195,96 @@ function viewtalukas(){
 
     for (i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
+     
     this.classList.toggle("active");
     var content = this.nextElementSibling;
     if (content.style.display === "block") {
+
     content.style.display = "none";
     } else {
     content.style.display = "block";
     }
+    
     });
     }
 }
 
-
-//crops details view in html page function
-function distcrops(){
+function talukafundtotal()
+{
+    fetch("http://localhost:8080/dist/viewtalukas")
+    .then(response=>{
+        return response.json()
+    })
+    .then(data=>{
+        for(var k=0;k<data.length;k++)
+        {
+            var temp = `${data[k].talukname}`
+            fundname[k]=temp;
+            temp=`${data[k].talukfund} `;
+            fund[k]=temp;
+            temp=`<button class="btn btn-primary btn-lg" onclick='payon(${data[k].talukid})'>PAY</button>`
+            btnn[k]=temp;
+        }
+        pp();
+    })
+}
+function pp()
+{
+    document.getElementById("bt").style.display="block";
+    document.getElementById("vt").style.display="none";
+    document.getElementById("dc").style.display="none";
+    document.getElementById("tf").style.display="none";
     document.getElementById("ff").innerHTML = "";
     document.getElementById("detail").innerHTML = "";
+    document.getElementById("lists").style.display="block";
     var pp="";
-    var namelist = "<table><tr> <th>cropid</th><th>cropname</th><th>cropcost</th></tr>";
+    var namelist = "<table class='table table-hover'><tr> <th>talukname</th><th>talukfund</th></tr>";
+    pp += namelist;    
+    for(var i=0;i<fund.length;i++)
+    {
+        //var namelist = "<li>" +cropslist[i]+  "</li>";
+        //document.getElementById("ff").innerHTML += namelist;
+        var namelist = "<tr> <td>"+ 
+        fundname[i] +"</td><td>"+ 
+        fund[i] +"</td><td>"+
+        btnn[i]+"</td></tr>";
+        pp+=namelist;
+        //document.getElementById("ff").innerHTML += namelist;
+    }
+    var namelist = "</table>";
+    pp+=namelist;
+    document.getElementById("ff").innerHTML = pp;
+    var ff = document.getElementById("ff");
+    ff.style.display = "block";
+}
+function payon(id)
+{
+    v = prompt("enter a paid")
+    alert(v)
+    fetch(`http://localhost:8080/dist/talukfundpay/${id}/${v}`)
+    .then(response=>{
+         location.reload("http://localhost:8080/homed.html");
+    })
+    
+}
+//crops details view in html page function
+function distcrops(){
+    document.getElementById("bt").style.display="block";
+    document.getElementById("vt").style.display="none";
+    document.getElementById("dc").style.display="none";
+    document.getElementById("tf").style.display="none";
+    document.getElementById("ff").innerHTML = "";
+    document.getElementById("detail").innerHTML = "";
+    document.getElementById("lists").style.display="block";
+    var pp="";
+    var namelist = "<table class='table table-hover'><thread><tr> <th>cropid</th><th>cropname</th><th>cropcost</th></tr></thead>";
     pp += namelist;
     //document.getElementById("ff").innerHTML += namelist;
     for(var i=0;i<cropslist.length;i++)
     {
         //var namelist = "<li>" +cropslist[i]+  "</li>";
         //document.getElementById("ff").innerHTML += namelist;
-        var namelist = "<tr> <td>"+ 
+        var namelist = "<tbody><tr> <td>"+ 
         cropslist[i][0] +"</td><td>"+ 
         cropslist[i][1] +"</td><td>"+
         cropslist[i][2] +"</td><td>"+ 
@@ -217,7 +293,7 @@ function distcrops(){
         pp+=namelist;
         //document.getElementById("ff").innerHTML += namelist;
     }
-    var namelist = "<tr><th><button onclick='cropinsertform()'>ADD NEW</button></th></tr>";
+    var namelist = "<tr><th><button class='btn btn-success btn-lg' onclick='cropinsertform()'>ADD NEW</button></th></tr></tbody>";
     pp+=namelist;
     var namelist = "</table>";
     pp+=namelist;
@@ -322,4 +398,10 @@ function logout()
 
     })
 }
-
+ function opener()
+ {
+    /*document.getElementById("vt").style.display="block";
+    document.getElementById("dc").style.display="block";
+    document.getElementById("bt").style.display = "none";*/
+     location.assign("http://localhost:8080/homed.html");
+ }

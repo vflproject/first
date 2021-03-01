@@ -1,96 +1,25 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1"> 
-       <link rel="stylesheet" href="homed.css">
+       <link rel="stylesheet" href="check.css">
        <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
        <style>
-           #districtpage{
+           /* #districtpage{
               display: none;
-           }
+           } */
            #prre{
                display: none;
            }
            #bt{
                display: none;
            }
-           #addcrop{
-            display: none;
-        }
-        #editcrop{
-            display: none;
-        }
-        #ff{
-            display: none;
-        }
-        .collapsible{
-            background-color:rgba(253, 253, 249, 0.705);
-            color: rgb(26, 23, 23);
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border:none;
-            text-align: left;
-            outline: none;
-            font-size: 30px;
-        }
-        .content{
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-            background-color: rgba(253, 253, 249, 0.705);
-        }
-        .active, .collapsible:hover{
-        background-color: #9d9d9d;
-        }
-        table{
-            font-size: medium;
-        }
-        /* table,th,td{
-         border : 1px solid black;
-         background-color: rgba(253,253,249,0.705);
-         width: 200px;
-         font-size: 35px;
-         height: 100px;
-        } */
-       
-        .navid{
-            color: #9d9d9d;
-            padding-top: 12px;
-        }
-        .navid:hover{
-            color: rgba(253, 253, 249, 0.705);
-        }
-        #img1{
-            height: 40px;
-            width: 40px;
-            padding-bottom: 10px;
-        }
-        body{
-            background-image: url(./agriculture.jpeg);
-            background-size: cover;
-        }
-        .container .jumbotron, .container-fluid .jumbotron{
-            background-color: rgba(189, 192, 145, 0.705);
-        }
-        #lists{
-            display: none;
-        }
-        #username,#logout{
-            padding-left: 10px;
-            font-size: medium;
-        }
        </style>
     </head>
     <body id="districtpage">
@@ -106,7 +35,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img id="img1" src="leaf-circle.png" alt="error"></a>
+                <a class="navbar-brand" href="#"><img id="img1" src="./leaf-circle.png" alt="error"></a>
               </div>
           
               <!-- Collect the nav links, forms, and other content for toggling -->
@@ -118,27 +47,23 @@
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">
-
-                    <p class="navid"><i class='far fa-user-circle' style='font-size:36px'></i><strong><i id="username">username</i></strong></p>
+                    <p class="navid"> username: <strong><i id="username">username</i></strong></p>
+                  
                 </ul>
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
           </nav>
         
         <div id="closeopen">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="jumbotron">
                     <h1>District Home page <span id="DHuser"></span></h1>
                         
                         <div class="vi1">
-                            <a class="btn btn-primary btn-lg " id="vt" href="#" onclick="viewtalukas()" role="button">TALUKAS LIST</a>
-                        <a class="btn btn-primary btn-lg " id="dc" href="#" onclick="distcrops()" role="button">CROPS LIST</a>
-                        <a class="btn btn-primary btn-lg " id="tf" href="#" onclick="talukafundtotal()" role="button">TALUKA FUND</a>
+                            <a class="btn btn-primary btn-lg vt" href="#" onclick="viewtalukas()" role="button">TALUKAS LIST</a>
+                        <a class="btn btn-primary btn-lg dc" href="#" onclick="distcrops()" role="button">CROPS LIST</a>
                         </div>
-                </div>
-            </div>     
-                       <div class="container-fluid" id="lists">
-                           <div class="jumbotron">
+                        <div class="container">
                             <div class="vi1">
         
                             </div>
@@ -170,7 +95,7 @@
                                     <button onclick="closeedit()">X</button>
                                 </form>
                             </div>
-                          
+                            </div>
                            <div id="prre"> 
                            <form onsubmit=goeditprre()>
                                <input type="number" id="pr" placeholder="producer in kgs">
@@ -178,13 +103,9 @@
                                <input type="submit">
                            </form>
                            </div>
-               
                            <button id="bt" class="btn btn-primary btn-lg" onclick="opener()">BACK</button>
-            
-               </div>
-               </div>
-
-               <!--container end here-->
+                        </div>
+                </div>
             </div>
        
         

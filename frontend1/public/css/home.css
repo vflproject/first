@@ -1,6 +1,6 @@
 #talukpage{
-  background-color: #000;
-  color: white;
+  background-color: white;
+  color: #000;
 }
 #firstdisplay{
     display: block;
@@ -15,6 +15,7 @@
 table {
   border-collapse: collapse;
   width: 100%;
+  font-size: 30px;
 }
 th, td{
   text-align:left;
@@ -29,7 +30,12 @@ th{
 #edit{
     display: none;
 }
-
+#bt1,#bt2{
+  font-size: 30px;
+}
+#vvii,#bt4{
+  font-size: 20px;
+}
 #myBtn{
   background-color: blue;
   color:white;

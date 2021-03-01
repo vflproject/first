@@ -20,9 +20,12 @@ router.get('/viewcrops/:id',(req,res)=>{
         }
     })
 });
+
+
 //Edit crop details like produce and requirements
 router.post('/editcrops/:tid/:cid',(req,res)=>{
     var talukid = req.params.tid;
+   
     var cropid  = req.params.cid;
     var pro = req.body.produce;
     var requ = req.body.requirement;
@@ -39,6 +42,7 @@ router.post('/editcrops/:tid/:cid',(req,res)=>{
     })
 });
 
+//delete crop from taluk --> not allow to public only for developers
 router.get('/viewcrops/deletecrop/:cid/:tid',(req,res)=>{
     var talukid=req.params.tid;
     var cropid=req.params.cid;
@@ -53,6 +57,7 @@ router.get('/viewcrops/deletecrop/:cid/:tid',(req,res)=>{
         }
     })
 });
+
 
 //view our taluk farmers
 router.get('/viewfarmers/:id',(req,res)=>{
@@ -144,19 +149,23 @@ router.post('/addfarmer/:tid/:fid',(req,res)=>{
         }
     })
 });
-//add balance
-router.get('/addbalancetofarmer/:id1/:id2/:id3',(req,res)=>{
+
+
+//add balance and add balance to fund
+router.get('/addbalancetofarmer/:id1/:id2/:id3/:id4',(req,res)=>{
     var cropname = req.params.id2;
     var aadharno = req.params.id1;
     var quant = req.params.id3;
+    var talukid = req.params.id4;
     /*
-     delimiter //
-mysql> create procedure addbalance(name varchar(20), aadhar int, quantitude int)
-    -> begin
+      delimiter //
+mysql>  create procedure addbalance(name varchar(20), aadhar int, quantitude int,talukid int)
+    ->  begin
     -> update farmer set balance=balance+(select (cropcost*quantitude) from dist1 where cropname=name) where aadharno=aadhar;
-    -> end //
+    ->  update taluka set talukfund=talukfund+(select (cropcost*quantitude) from dist1 where cropname=name) where talukid=1;
+    ->  end //
     */
-    connection.query("call addbalance('"+cropname+"',"+aadharno+","+quant+")", 
+    connection.query("call addbalance('"+cropname+"',"+aadharno+","+quant+","+talukid+")", 
     (err,result)=>{
         if(err)
         {
@@ -168,6 +177,8 @@ mysql> create procedure addbalance(name varchar(20), aadhar int, quantitude int)
         }
     })
 });
+
+
 // once new crop used in add balance then we add in crop table
 router.post('/cropuse/:id1/:id2',(req,res)=>{
     var talukno = req.params.id1;
@@ -184,6 +195,8 @@ router.post('/cropuse/:id1/:id2',(req,res)=>{
         }
     })
 })
+
+
 //payment
 router.get('/payment/:id1/:id2',(req,res)=>{
     var aadharno = req.params.id1;
@@ -207,6 +220,8 @@ router.get('/payment/:id1/:id2',(req,res)=>{
         }
     });
 })
+
+
 //balance viewer
 router.get('/payment/:id1',(req,res)=>{
     var aadharno = req.params.id1;
@@ -221,6 +236,9 @@ router.get('/payment/:id1',(req,res)=>{
         }
     });
 })
+
+
+// send an sms to registered mobile number
 router.get('/sms/:cname/:quant/:ano',(req,res)=>{
     var ano = req.params.ano;
     var cname = req.params.cname;
@@ -237,7 +255,7 @@ router.get('/sms/:cname/:quant/:ano',(req,res)=>{
            m = '+91'+m;
            const accountSid = 'ACc398478869247bf9fbd322386ab53277';
            //const authToken = 'afabaa2704700dee6508a25276326cd2';
-           const authToken = '3c85a44f1666ac3ad28eadbef2569fdb';
+           const authToken = '80dfe2fa3357a908bd70a5bbcabfa9d8';
            const client = require('twilio')(accountSid, authToken);
 
           const notificationOpts = {
